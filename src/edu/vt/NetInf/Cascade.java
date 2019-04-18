@@ -69,6 +69,8 @@ public class Cascade {
 
     }
 
+    public
+
 
 
     //getNode NodeId search via same NodeId?
