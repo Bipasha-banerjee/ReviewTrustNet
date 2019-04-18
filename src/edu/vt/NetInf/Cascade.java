@@ -73,7 +73,13 @@ public class Cascade {
         return NIdHitH.size();
     }
 
-    public String GetParent(String NId){
+    public String getNode(int index){
+        Object[] keysSet = NIdHitH.keySet().toArray();
+        return keysSet[index].toString();
+
+    }
+
+    public String getParent(String NId){
         return NIdHitH.get(NId).Parent;
 
     }
@@ -147,6 +153,8 @@ Double TransProb(String N1, String N2) {
         return Alpha * (getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * Alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)); // rayleigh
     }
 }
+
+
 }
 
 
