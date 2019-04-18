@@ -1,9 +1,8 @@
 package edu.vt.NetInf;
 
-import com.sun.javafx.scene.text.HitInfo;
-
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Cascade {
 
@@ -65,15 +64,19 @@ public class Cascade {
         return NIdHitH.size();
     }
 
-    public String getNode(){
-        return "";
+    public String GetParent(int NId){
+        return NIdHitH.get(NId).Parent;
 
     }
 
 
 
+    //getNode NodeId search via same NodeId?
+
+
+
     //Streaming in Constructor TSIn?
-    //Stream out TSOut
+    //Stream out TSOut Save
 
 
 }
