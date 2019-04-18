@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static java.lang.Math.exp;
+import static java.lang.Math.pow;
 import static java.util.stream.Collectors.*;
 import static java.util.Map.Entry.*;
 
@@ -128,12 +130,24 @@ public class Cascade {
         NIdHitH = sortedMap;
     }
 
-
-
-
-
-
-
+Double TransProb(String N1, String N2) {
+    if (!IsNode(N1) || !IsNode(N2)) {
+        return Eps;
+    }
+    if (getUnixTime(N1) >= getUnixTime(N2)) {
+        return Eps;
+    }
+    if (Model == 0) {
+        return Alpha * exp(-Alpha * (getUnixTime(N2) - getUnixTime(N1))); //exponential
+    }
+    else if(Model == 1){
+        return (Alpha-1)+pow((getUnixTime(N2) - getUnixTime(N1)),-Alpha); //Power-law
+    }
+    else {
+        return Alpha * (getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * Alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)); // rayleigh
+    }
+}
+}
 
 
     //getNode NodeId search via same NodeId?
@@ -144,7 +158,7 @@ public class Cascade {
     //Stream out TSOut Save
 
 
-}
+
 
 class compareNId implements Comparator<HitInfo>{
 
