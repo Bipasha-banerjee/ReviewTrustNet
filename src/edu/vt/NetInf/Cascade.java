@@ -65,7 +65,8 @@ public class Cascade {
         return NIdHitH.size();
     }
 
-    public void getNode(){
+    public String getNode(){
+        return "";
 
     }
 
