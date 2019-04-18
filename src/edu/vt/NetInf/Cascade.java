@@ -84,8 +84,8 @@ public class Cascade {
         return NIdHitH.get(NId).unixTime;
     }
 
-    public void Add(String Nid, Long unixTime){
-        NIdHitH.put(Nid,new HitInfo(Nid,unixTime));
+    public void Add(String Nid, Long unixTime, int usefullness){
+        NIdHitH.put(Nid,new HitInfo(Nid,unixTime, usefullness));
     }
 
     public  void Del(String NId){
@@ -127,6 +127,8 @@ public class Cascade {
         }
         NIdHitH = sortedMap;
     }
+
+
 
 
 
