@@ -65,6 +65,10 @@ public class Cascade {
         return NIdHitH.size();
     }
 
+    public void getNode(){
+
+    }
+
 
 
     //Streaming in Constructor TSIn?
