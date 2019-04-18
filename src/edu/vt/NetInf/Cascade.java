@@ -37,12 +37,21 @@ public class Cascade {
         Eps = 1e-64;
     }
 
+
     public Cascade(Double alpha,Double eps) {
         Alpha = alpha;
         NIdHitH = new HashMap<>();
         CurProb = 0.0;
-        Eps = 1e-64;
+        Eps = eps;
         Model = 0;
-    }
 
+    }
+    public Cascade(Double alpha,Double eps,Integer model) {
+        Alpha = alpha;
+        NIdHitH = new HashMap<>();
+        CurProb = 0.0;
+        Eps = eps;
+        Model = model;
+
+    }
 }
