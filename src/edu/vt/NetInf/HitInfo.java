@@ -4,9 +4,9 @@ public class HitInfo {
     public String NId,Parent;
     public Long unixTime;
 
-    public HitInfo(String NId, String parent, Long unixTime) {
+    public HitInfo(String NId, Long unixTime) {
         this.NId = NId;
-        Parent = parent;
+        Parent = null;
         this.unixTime = unixTime;
     }
 
