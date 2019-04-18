@@ -54,4 +54,21 @@ public class Cascade {
         Model = model;
 
     }
+
+    public void Clr(){
+        NIdHitH.clear();
+        CurProb = 0.0;
+        Alpha = 1.0;
+    }
+
+    public int Len(){
+        return NIdHitH.size();
+    }
+
+
+
+    //Streaming in Constructor TSIn?
+    //Stream out TSOut
+
+
 }
