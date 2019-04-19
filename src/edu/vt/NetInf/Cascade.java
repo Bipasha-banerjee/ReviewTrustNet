@@ -5,8 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static java.lang.Math.exp;
-import static java.lang.Math.pow;
+import static java.lang.Math.*;
 import static java.util.stream.Collectors.*;
 import static java.util.Map.Entry.*;
 
@@ -152,6 +151,60 @@ Double TransProb(String N1, String N2) {
     else {
         return Alpha * (getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * Alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)); // rayleigh
     }
+}
+//Node iters for graph or not? this is without, check for correction.
+double getProb(Graph G){
+        double P =0;
+        for(int n = 0; n < Len(); n++){
+            String dstNId = getNode(n);
+            double dstTime = getUnixTime(dstNId);
+            Graph.Node node = G.getNode(dstNId);
+            double MxProb = log(Eps);
+            String bestParent = null;
+            for(int e = 0; e < node.getInDeg();e++){
+                int EId = node.getInEId(e);
+                Graph.Edge edge = G.getEdge(EId);
+                String srcId = edge.getSrcNId();
+                if(IsNode(srcId) && getUnixTime(srcId)< dstTime){
+                    double Prob = Math.log(TransProb(srcId,dstNId));
+                    if(MxProb <Prob){
+                        MxProb = Prob;
+                        bestParent = srcId;
+                    }
+                }
+            }
+            NIdHitH.get(dstNId).Parent = bestParent;
+            P += MxProb;
+        }
+        return P;
+}
+
+void initProb(){
+        CurProb = Math.log(Eps) * Len();
+        for(String s : NIdHitH.keySet()){
+            NIdHitH.get(s).Parent = null;
+        }
+}
+
+double updateProb(String N1, String N2, boolean update){
+        if(!IsNode(N1) || !IsNode(N2)){
+            return CurProb;
+        }
+        if(getUnixTime(N1)>getUnixTime(N2)){
+            return CurProb;
+        }
+        double P1 = log(TransProb(getParent(N2),N2));
+        double P2 = log(TransProb(N1,N2));
+        if(P1<P2){
+            if(update){
+                CurProb = CurProb - P1 + P2;
+                NIdHitH.get(N2).Parent = N1;
+            }
+            else{
+                return CurProb - P1 + P2;
+            }
+        }
+        return CurProb;
 }
 
 
