@@ -152,6 +152,7 @@ Double TransProb(String N1, String N2) {
         return Alpha * (getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * Alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)); // rayleigh
     }
 }
+
 //Node iters for graph or not? this is without, check for correction.
 double getProb(Graph G){
         double P =0;
@@ -159,7 +160,7 @@ double getProb(Graph G){
             String dstNId = getNode(n);
             double dstTime = getUnixTime(dstNId);
             Graph.Node node = G.getNode(dstNId);
-            double MxProb = log(Eps);
+            double MxProb = log(Eps);  //Initial max probability set to min
             String bestParent = null;
             for(int e = 0; e < node.getInDeg();e++){
                 int EId = node.getInEId(e);
