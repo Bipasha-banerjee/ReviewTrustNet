@@ -6,10 +6,10 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import org.json.JSONArray;
+import org.json.JSONObject;
+//import org.json.parser.JSONParser;
+//import org.json.parser.ParseException;
 
 public class PrepareData {
      List<dataObject> dataList = new ArrayList<>();
@@ -56,20 +56,36 @@ public class PrepareData {
 
 
 
-    public  void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 
 
         fetchIntoList();
-        processObjects();
-        writeToFile();
+      //  processObjects();
+       // writeToFile();
 
 
     }
 
 
 
-    void fetchIntoList(){
+    static void fetchIntoList() throws IOException {
+        System.out.println("Inside fetchIntoList");
+        BufferedReader in
+                = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/data_1.json"));
 
+        ArrayList<JSONObject> contentsAsJsonObjects = new ArrayList<JSONObject>();
+        System.out.println("after content as json");
+        while(true)
+        {
+
+            String str = in.readLine();
+            if(str==null)break;
+            contentsAsJsonObjects.add(new JSONObject(str));
+        }
+
+        String summary = contentsAsJsonObjects.get(0).getString("summary");
+        System.out.println(summary);
+        System.out.println(contentsAsJsonObjects.get(contentsAsJsonObjects.size()-1));
 
 
     }
