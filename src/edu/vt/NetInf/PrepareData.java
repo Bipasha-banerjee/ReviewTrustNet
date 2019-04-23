@@ -12,9 +12,9 @@ import org.json.JSONObject;
 //import org.json.parser.ParseException;
 
 public class PrepareData {
-     List<dataObject> dataList = new ArrayList<>();
-     List<tuples> tupleList = new ArrayList<>();
-    class dataObject{
+     static List<dataObject>  dataList = new ArrayList<>();
+     static List<tuples> tupleList = new ArrayList<>();
+    static class dataObject{
 
         String reviewerID;
         String productID;
@@ -31,8 +31,18 @@ public class PrepareData {
 
         }
 
+        @Override
+        public String toString() {
+            return "dataObject{" +
+                    "reviewerID='" + reviewerID + '\'' +
+                    ", productID='" + productID + '\'' +
+                    ", usefullness=" + usefullness +
+                    ", rating=" + rating +
+                    ", UnixreviewTime=" + UnixreviewTime +
+                    '}';
+        }
     }
-    class tuples{
+   static  class tuples{
         String reviewerID1;
         String reviewerID2;
         double usefulness;
@@ -83,9 +93,39 @@ public class PrepareData {
             contentsAsJsonObjects.add(new JSONObject(str));
         }
 
-        String summary = contentsAsJsonObjects.get(0).getString("summary");
-        System.out.println(summary);
-        System.out.println(contentsAsJsonObjects.get(contentsAsJsonObjects.size()-1));
+
+       for (JSONObject jobj : contentsAsJsonObjects)
+       {
+
+           if (jobj.getString("reviewerID").equals("anonymous")|| jobj.getString("reviewerID").equals("Amazon Customer")){
+               continue;
+           }
+           String reviewerID = jobj.getString("reviewerID");
+
+           String productID = jobj.getString("asin");
+           JSONArray jarray = jobj.getJSONArray("helpful");
+           double rating = jobj.getDouble("overall");
+           long unixTime= jobj.getLong("unixReviewTime");
+
+           Integer i = jarray.getInt(0);
+           Integer j = jarray.getInt(1);
+           double div =0;
+           if(i!=0 && j!=0)
+           {
+                div = (Double.valueOf(i))/(Double.valueOf(j));
+           }
+           else
+               div = 0.01;
+
+           dataList.add(new dataObject(reviewerID,productID,div,rating,unixTime));
+
+
+
+
+
+       }
+       System.out.println(dataList.get(0));
+       System.out.println(dataList.get(dataList.size()-1));
 
 
     }
