@@ -70,8 +70,15 @@ public class PrepareData {
 
 
         fetchIntoList();
-      //  processObjects();
-       // writeToFile();
+        processObjects();
+        List<List<tuples>> list = splitTuple();
+        //System.out.println(list.get(0).get(0));
+        //System.out.println(list.get(1).get(0));
+        //System.out.println(list.get(2).get(0));
+
+
+
+        // writeToFile();
 
 
     }
@@ -89,6 +96,7 @@ public class PrepareData {
         {
 
             String str = in.readLine();
+          //  System.out.println(str);
             if(str==null)break;
             contentsAsJsonObjects.add(new JSONObject(str));
         }
@@ -97,9 +105,7 @@ public class PrepareData {
        for (JSONObject jobj : contentsAsJsonObjects)
        {
 
-           if (jobj.getString("reviewerID").equals("anonymous")|| jobj.getString("reviewerID").equals("Amazon Customer")){
-               continue;
-           }
+
            String reviewerID = jobj.getString("reviewerID");
 
            String productID = jobj.getString("asin");
@@ -124,16 +130,16 @@ public class PrepareData {
 
 
        }
-       System.out.println(dataList.get(0));
-       System.out.println(dataList.get(dataList.size()-1));
+
 
 
     }
 
-     void processObjects(){
+    static void processObjects(){
         for(int i = 0; i < dataList.size();i++){
                dataObject obj1 = dataList.get(i);
                String productId = obj1.productID;
+              // System.out.println("product id "+productId);
             for(int j = 0; j<dataList.size();j++){
 
                 if(i!=j){
@@ -151,6 +157,33 @@ public class PrepareData {
             }
 
         }
+    }
+
+    static List<List<tuples>> splitTuple(){
+        List<List<tuples>> finalTuple = new ArrayList<>();
+
+        tupleList.sort(new comparetuple());
+
+        String productId = tupleList.get(0).productID;
+        int i = 0;
+        finalTuple.add(new ArrayList<tuples>());
+        for(tuples t : tupleList){
+          //  System.out.println(t);
+            if(t.productID.equals(productId))
+            {
+
+                finalTuple.get(i).add(t);
+            }
+            else{
+                productId = t.productID;
+                i++;
+                finalTuple.add(new ArrayList<tuples>());
+                finalTuple.get(i).add(t);
+            }
+        }
+        System.out.println(finalTuple.get(1));
+        return finalTuple;
+
     }
 
     void writeToFile() throws IOException {
@@ -171,7 +204,7 @@ public class PrepareData {
         }
         System.out.println(j);
     }
-    class comparetuple implements Comparator<tuples>{
+    static class comparetuple implements Comparator<tuples>{
 
         public int compare(tuples a, tuples b){
             return  a.productID.compareTo(b.productID);
