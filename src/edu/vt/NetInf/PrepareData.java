@@ -96,7 +96,7 @@ public class PrepareData {
     static void fetchIntoList() throws IOException {
         System.out.println("Inside fetchIntoList");
         BufferedReader in
-                = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/data_1.json"));
+                = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/data_3.json"));
 
         ArrayList<JSONObject> contentsAsJsonObjects = new ArrayList<JSONObject>();
         System.out.println("after content as json");
@@ -115,7 +115,6 @@ public class PrepareData {
 
 
            String reviewerID = jobj.getString("reviewerID");
-
            String productID = jobj.getString("asin");
            JSONArray jarray = jobj.getJSONArray("helpful");
            double rating = jobj.getDouble("overall");
@@ -196,7 +195,7 @@ public class PrepareData {
 
     static void writeToFile(int k, List<tuples> lst ) throws IOException {
        // System.out.println(lst);
-        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outpulFiles/";
+        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
 
         FileWriter fileWriter = new FileWriter(path+"GroundTruth"+k+".csv");
         PrintWriter printWriter = new PrintWriter(fileWriter);
