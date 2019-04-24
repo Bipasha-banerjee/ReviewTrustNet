@@ -76,6 +76,14 @@ public class PrepareData {
         //System.out.println(list.get(1).get(0));
         //System.out.println(list.get(2).get(0));
 
+        for(int i=0; i< list.size();i++){
+
+
+            writeToFile(i,list.get(i));
+
+
+        }
+
 
 
         // writeToFile();
@@ -186,23 +194,24 @@ public class PrepareData {
 
     }
 
-    void writeToFile() throws IOException {
+    static void writeToFile(int k, List<tuples> lst ) throws IOException {
+
         FileWriter fileWriter = new FileWriter("<filename>+1");
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        tupleList.sort(new comparetuple());
-        int j =0;
+
+
         String prevID = tupleList.get(0).productID;
         for(int i =0; i < tupleList.size(); i++){
 
-            if(tupleList.get(i).productID.equals(prevID)){
+
                 printWriter.println(tupleList.get(i).toString());
-                j++;
-            }
+
+
 
 
 
         }
-        System.out.println(j);
+
     }
     static class comparetuple implements Comparator<tuples>{
 
