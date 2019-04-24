@@ -72,7 +72,7 @@ public class PrepareData {
         fetchIntoList();
         processObjects();
         List<List<tuples>> list = splitTuple();
-        //System.out.println(list.get(0).get(0));
+        //System.out.println(list.get(0));
         //System.out.println(list.get(1).get(0));
         //System.out.println(list.get(2).get(0));
 
@@ -189,28 +189,34 @@ public class PrepareData {
                 finalTuple.get(i).add(t);
             }
         }
-        System.out.println(finalTuple.get(1));
+       // System.out.println(finalTuple.get(1));
         return finalTuple;
 
     }
 
     static void writeToFile(int k, List<tuples> lst ) throws IOException {
+       // System.out.println(lst);
+        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outpulFiles/";
 
-        FileWriter fileWriter = new FileWriter("<filename>+1");
+        FileWriter fileWriter = new FileWriter(path+"GroundTruth"+k+".csv");
         PrintWriter printWriter = new PrintWriter(fileWriter);
 
 
-        String prevID = tupleList.get(0).productID;
-        for(int i =0; i < tupleList.size(); i++){
+        //String prevID = tupleList.get(0).productID;
+        for(int i =0; i < lst.size(); i++){
 
 
-                printWriter.println(tupleList.get(i).toString());
+                printWriter.println(lst.get(i).toString());
+
+               // System.out.println(lst.get(0));
+
 
 
 
 
 
         }
+        printWriter.close();
 
     }
     static class comparetuple implements Comparator<tuples>{
