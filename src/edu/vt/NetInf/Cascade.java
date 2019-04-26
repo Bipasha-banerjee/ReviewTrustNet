@@ -91,8 +91,8 @@ public class Cascade {
         return NIdHitH.get(NId).unixTime;
     }
 
-    public void Add(String Nid, Long unixTime, int usefullness){
-        NIdHitH.put(Nid,new HitInfo(Nid,unixTime, usefullness));
+    public void Add(String Nid, Long unixTime){
+        NIdHitH.put(Nid,new HitInfo(Nid,unixTime));
     }
 
     public  void Del(String NId){
@@ -105,7 +105,7 @@ public class Cascade {
 
 
 
-    void Sort(boolean order){
+    void Sort(){
 
         List<String> mapKeys = new ArrayList<>(NIdHitH.keySet());
         List<HitInfo> mapValues = new ArrayList<>(NIdHitH.values());

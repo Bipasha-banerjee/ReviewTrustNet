@@ -46,20 +46,22 @@ public class PrepareData {
         String reviewerID1;
         String reviewerID2;
         double usefulness;
-        long timeDifference;
+        long UnixTime1;
+       long UnixTime2;
         String productID;
 
-        public tuples(String reviewerID1, String reviewerID2, double usefulness, long timeDifference,String productID) {
+        public tuples(String reviewerID1, String reviewerID2, double usefulness, long UnixTime1,long UnixTime2, String productID) {
             this.reviewerID1 = reviewerID1;
             this.reviewerID2 = reviewerID2;
             this.usefulness = usefulness;
-            this.timeDifference = timeDifference;
+            this.UnixTime1 = UnixTime1;
+            this.UnixTime2 = UnixTime2;
             this.productID = productID;
         }
 
         @Override
         public String toString() {
-            return reviewerID1 + "," +  reviewerID2 + "," + usefulness + "," + timeDifference + "," + productID;
+            return reviewerID1 + "," +  reviewerID2 + "," + usefulness + "," + UnixTime1 + UnixTime2 + "," + productID;
 
         }
     }
@@ -154,7 +156,7 @@ public class PrepareData {
                     if(!obj1.reviewerID.equals(obj2.reviewerID)){
                         if(obj1.productID.equals(obj2.productID)){
                             if(obj1.UnixreviewTime < obj2.UnixreviewTime){
-                                tupleList.add(new tuples(obj1.reviewerID,obj2.reviewerID,obj1.usefullness,obj2.UnixreviewTime - obj1.UnixreviewTime,obj1.productID));
+                                tupleList.add(new tuples(obj1.reviewerID,obj2.reviewerID,obj1.usefullness,obj1.UnixreviewTime,  obj2.UnixreviewTime,obj1.productID));
                             }
                         }
 

@@ -1,8 +1,7 @@
 package edu.vt.NetInf;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Graph {
     class Node{
@@ -162,12 +161,22 @@ public class Graph {
         DelNode(N.Id);
     }
 
+    String GetRndNId(){
+        Collection coll = NodeH.values();
+        Node[] nodes = (Node[]) coll.toArray();
+        int randomInt = ThreadLocalRandom.current().nextInt(0,nodes.length);
+        return nodes[randomInt].Id;
+
+    }
+
     //Iterative beg end node functions?
 
 
 
 
     //EDGES
+
+    int getEdges(){return EdgeH.size();}
 
     Edge getEdge(int EId){
         return EdgeH.get(EId);
