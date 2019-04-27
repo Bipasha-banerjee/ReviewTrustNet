@@ -20,9 +20,7 @@ public class GenerateNet {
 
                  netInf.AddCasc(C);
              }
-
              }
-
 
         }
 
