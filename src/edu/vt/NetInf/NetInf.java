@@ -161,6 +161,7 @@ public class NetInf {
             EdgesUsed.put(edge,EdgesUsed.get(edge)+1);
         }
 
+        return C;
 
         }
 
