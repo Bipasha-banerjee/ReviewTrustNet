@@ -336,6 +336,18 @@ public class NetInf {
                 }
                 gainListToSort.sort(); ///////////Start from here
 
+                for(int i=0, ii=0, j=0;ii<gainListToSort.size();j++){
+                    if((i+gainListToSort.size()<GainList.size())&&
+                            (gainListToSort.get(ii).GainValue < GainList.get(i+gainListToSort.size()).GainValue)){
+                        GainList.add(j,GainList.get(gainListToSort.size()+i));
+                        i++;
+                    }
+                    else{
+                        GainList.add(j,gainListToSort.get(ii));
+                        ii++;
+                    }
+                }
+
             }
 
 
