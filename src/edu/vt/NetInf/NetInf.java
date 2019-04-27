@@ -170,6 +170,7 @@ public class NetInf {
         }
         return C;
 
+        return C;
 
         }
 
