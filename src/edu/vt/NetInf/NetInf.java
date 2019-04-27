@@ -67,9 +67,9 @@ public class NetInf {
 
     public void loadGroundTruth(String path, double betaMn , double betaMx) throws FileNotFoundException {
 
-            File file =
-                    new File(path);
-            Scanner sc = new Scanner(file);
+        File file =
+                new File(path);
+        Scanner sc = new Scanner(file);
 
         while (sc.hasNextLine()){
             String line = sc.nextLine();
@@ -153,9 +153,9 @@ public class NetInf {
                 }
                 InfectedNIdH.put(NId,window);
 
-                }
-
             }
+
+        }
         C.Sort();
         Iterator EIt = InfectedByH.entrySet().iterator();
         while(EIt.hasNext()){
@@ -170,9 +170,8 @@ public class NetInf {
         }
         return C;
 
-        return C;
 
-        }
+    }
 
     public HashMap<String,Long> sort(
             HashMap<String,Long> passedMap) {
@@ -203,8 +202,7 @@ public class NetInf {
         }
         return sortedMap;
     }
-
-    }
+}
 
 
 

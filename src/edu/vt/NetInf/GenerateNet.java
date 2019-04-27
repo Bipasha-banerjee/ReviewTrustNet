@@ -17,6 +17,11 @@ public class GenerateNet {
             Cascade C = new Cascade();
              C = netInf.genCascade(C,EdgesUsed);
              if(C!=null){
+
+                 netInf.AddCasc(C);
+             }
+
+
                  netInf.cascadeList.Add(C);
              }
 
@@ -28,4 +33,4 @@ public class GenerateNet {
 
 
     }
-}
+
