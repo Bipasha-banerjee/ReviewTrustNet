@@ -13,7 +13,7 @@ public class NetInf {
     HashMap<String, NodeInfo> NodeHMap = new HashMap<>();
     HashMap<EdgePair,EdgeInfo> EdgeInfoMap = new HashMap<>();
     ArrayList<GainPair> GainList = new ArrayList<>();
-    HashMap<EdgePair,CascadeList>  CascPerEdge = new HashMap<>();
+    HashMap<EdgePair,CascIdList>  CascPerEdge = new HashMap<>();
     CascadeList cascadeList = new CascadeList();
     Graph graph, groundTruth;
     boolean BoundOn, CompareGroundTruth;
@@ -284,19 +284,45 @@ public class NetInf {
                         if(!CascPerEdge.containsKey(new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)))
 
                         {
-                         graph.AddEdge(cascadeList.get(cIdList.get(c)).getNode(i),NId,-1);
+                        // graph.AddEdge(cascadeList.get(cIdList.get(c)).getNode(i),NId,-1);
                          GainList.add(new GainPair(Double.MAX_VALUE,new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)));
-                         CascPerEdge.put((new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)), new CascadeList());
+                         CascPerEdge.put((new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)), new CascIdList());
                         }
 
-                        CascadeList cascadeList1 = CascPerEdge.get(new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId));
-                        cascadeList1.Add(cascadeList.get(c));
+                        CascIdList cascadeList1 = CascPerEdge.get(new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId));
+                        cascadeList1.Add(c);
                         CascPerEdge.put((new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)), cascadeList1);
                     }
                 }
             }
         }
 
+    }
+
+    public double GetAllCascProb( String n1, String n2) {
+        double p = 0.0;
+
+        if (n1.equals(null) && n2.equals(null)) {
+            for (int c = 0; c < cascadeList.Size(); c++) {
+                p += cascadeList.get(c).updateProb(n1, n2, false); }
+            return p;
+            }
+        CascIdList cList = new CascIdList();
+        if(CascPerEdge.containsKey(new EdgePair(n1,n2)) {
+            cList = CascPerEdge.get(new EdgePair(n1, n2));
+        }
+
+        for(int c=0;c<cList.Size();c++)
+        {
+            p+=(cascadeList.get(cList.get(c)).updateProb(n1,n2,false))-(cascadeList.get(cList.get(c)).CurProb);
+        }
+        return p;
+        }
+
+
+    public void GreedyOpt(int MaxEdges)
+    {
+    Double curProb= GetAllCascProb(null, null);
     }
 }
 
