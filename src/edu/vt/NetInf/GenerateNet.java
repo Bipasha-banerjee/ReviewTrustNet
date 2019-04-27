@@ -17,9 +17,14 @@ public class GenerateNet {
             Cascade C = new Cascade();
              C = netInf.genCascade(C,EdgesUsed);
              if(C!=null){
+<<<<<<< HEAD
                  netInf.AddCasc(C);
              }
 
+=======
+                 netInf.cascadeList.Add(C);
+             }
+>>>>>>> 1c0edc63ff2bfb9e2e6726431933bd9d94a741f7
 
 
         }
