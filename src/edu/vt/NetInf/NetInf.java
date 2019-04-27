@@ -33,7 +33,7 @@ public class NetInf {
         CompareGroundTruth = compareGroundTruth;
     }
 
-    public class EdgePair{
+    public static class EdgePair{
         public String Source;
         public String Destination;
 
@@ -301,10 +301,11 @@ public class NetInf {
 
     public double GetAllCascProb( String n1, String n2) {
         double p = 0.0;
+        double alpha  = 0.0;
 
         if (n1.equals(null) && n2.equals(null)) {
             for (int c = 0; c < cascadeList.Size(); c++) {
-                p += cascadeList.get(c).updateProb(n1, n2, false); }
+                p += cascadeList.get(c).updateProb(n1, n2, false, Alphas ); }
             return p;
             }
         CascIdList cList = new CascIdList();
@@ -312,9 +313,10 @@ public class NetInf {
             cList = CascPerEdge.get(new EdgePair(n1, n2));
         }
 
+
         for(int c=0;c<cList.Size();c++)
         {
-            p+=(cascadeList.get(cList.get(c)).updateProb(n1,n2,false))-(cascadeList.get(cList.get(c)).CurProb);
+            p+=(cascadeList.get(cList.get(c)).updateProb(n1,n2,false,Alphas))-(cascadeList.get(cList.get(c)).CurProb);
         }
         return p;
         }
@@ -322,7 +324,11 @@ public class NetInf {
 
     public void GreedyOpt(int MaxEdges)
     {
-    Double curProb= GetAllCascProb(null, null);
+        double CurProb = GetAllCascProb(null, null);
+        double LastGain =Double.MAX_VALUE;
+        int attempts = 0;
+        Boolean msort = false;
+
     }
 }
 

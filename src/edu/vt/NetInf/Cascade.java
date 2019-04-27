@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import edu.vt.NetInf.NetInf.EdgePair;
 
 import static java.lang.Math.*;
 import static java.util.stream.Collectors.*;
@@ -135,7 +136,7 @@ public class Cascade {
         NIdHitH = sortedMap;
     }
 
-Double TransProb(String N1, String N2) {
+Double TransProb(String N1, String N2, double alpha) {
     if (!IsNode(N1) || !IsNode(N2)) {
         return Eps;
     }
@@ -143,18 +144,18 @@ Double TransProb(String N1, String N2) {
         return Eps;
     }
     if (Model == 0) {
-        return Alpha * exp(-Alpha * (getUnixTime(N2) - getUnixTime(N1))); //exponential
+        return alpha * exp(-alpha * (getUnixTime(N2) - getUnixTime(N1))); //exponential
     }
     else if(Model == 1){
-        return (Alpha-1)+pow((getUnixTime(N2) - getUnixTime(N1)),-Alpha); //Power-law
+        return (alpha-1)+pow((getUnixTime(N2) - getUnixTime(N1)),-alpha); //Power-law
     }
     else {
-        return Alpha * (getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * Alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)); // rayleigh
+        return alpha * (getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)); // rayleigh
     }
 }
 
 //Node iters for graph or not? this is without, check for correction.
-double getProb(Graph G){
+/*double getProb(Graph G){
         double P =0;
         for(int n = 0; n < Len(); n++){
             String dstNId = getNode(n);
@@ -167,7 +168,7 @@ double getProb(Graph G){
                 Graph.Edge edge = G.getEdge(EId);
                 String srcId = edge.getSrcNId();
                 if(IsNode(srcId) && getUnixTime(srcId)< dstTime){
-                    double Prob = Math.log(TransProb(srcId,dstNId));
+                    double Prob = Math.log(TransProb(srcId,dstNId,0.0)); //see this alpha value of get Prob
                     if(MxProb <Prob){
                         MxProb = Prob;
                         bestParent = srcId;
@@ -178,7 +179,7 @@ double getProb(Graph G){
             P += MxProb;
         }
         return P;
-}
+}*/
 
 void initProb(){
         CurProb = Math.log(Eps) * Len();
@@ -187,15 +188,29 @@ void initProb(){
         }
 }
 
-double updateProb(String N1, String N2, boolean update){
+double updateProb(String N1, String N2, boolean update, HashMap<NetInf.EdgePair,Double> Alphas){
         if(!IsNode(N1) || !IsNode(N2)){
             return CurProb;
         }
         if(getUnixTime(N1)>getUnixTime(N2)){
             return CurProb;
         }
-        double P1 = log(TransProb(getParent(N2),N2));
-        double P2 = log(TransProb(N1,N2));
+
+    double alpha=0.0;
+    double alphaParent=0.0;
+    if(Alphas.containsKey(new EdgePair(N1,N2))) {
+
+       alpha = Alphas.get(new NetInf.EdgePair(N1, N2));
+
+    }
+
+    if(Alphas.containsKey(new EdgePair(getParent(N2),N2))) {
+
+        alphaParent = Alphas.get(new NetInf.EdgePair(getParent(N2), N2));
+
+    }
+        double P1 = log(TransProb(getParent(N2),N2,alphaParent));
+        double P2 = log(TransProb(N1,N2,alpha));
         if(P1<P2){
             if(update){
                 CurProb = CurProb - P1 + P2;
