@@ -308,7 +308,7 @@ public class NetInf {
             return p;
             }
         CascIdList cList = new CascIdList();
-        if(CascPerEdge.containsKey(new EdgePair(n1,n2)) {
+        if(CascPerEdge.containsKey(new EdgePair(n1,n2)) ){
             cList = CascPerEdge.get(new EdgePair(n1, n2));
         }
 
