@@ -49,7 +49,14 @@ public class NetInf {
         public void Add(Cascade c){
             cascadeList.add(c);
         }
-
+        public int Size()
+        {
+            return cascadeList.size();
+        }
+        public Cascade get(int i)
+        {
+            return cascadeList.get(i);
+        }
     }
     public class GainPair{
         public Double GainValue;
@@ -215,12 +222,41 @@ public class NetInf {
         }
         return sortedMap;
     }
+
+    public class CascIdList
+    {
+        ArrayList<Integer> cascIdList = new ArrayList<>();
+        public CascIdList() {
+        }
+        public void Add(int i){
+        cascIdList.add(i);
+        }
+
+    }
+    public void init()
+    {
+        HashMap<String, CascIdList> CascPN = new HashMap<>();
+        graph = new Graph();
+        GainList.clear();
+        CascPerEdge.clear();
+
+        for(int c=0;c<cascadeList.Size();c++)
+        {
+            for(int i=0; i<=cascadeList.get(c).Len();i++)
+            {
+                if(!graph.isNode(cascadeList.get(c).getNode(i)))
+                {
+                    graph.AddNode(cascadeList.get(c).getNode(i));
+                }
+                if(!CascPN.containsKey(cascadeList.get(c).getNode(i)))
+                {
+                    CascPN.put(cascadeList.get(c).getNode(i),new CascIdList());
+                }
+            }
+        }
+
+    }
 }
-
-
-
-
-
 
 
 
