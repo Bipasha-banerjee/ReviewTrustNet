@@ -14,6 +14,7 @@ public class NetInf {
     HashMap<EdgePair,EdgeInfo> EdgeInfoMap = new HashMap<>();
     ArrayList<GainPair> GainList = new ArrayList<>();
     HashMap<EdgePair,CascadeList>  CascPerEdge = new HashMap<>();
+    CascadeList cascadeList = new CascadeList();
     Graph graph, groundTruth;
     boolean BoundOn, CompareGroundTruth;
     HashMap<EdgePair,Double> Alphas = new HashMap<>();
@@ -45,6 +46,9 @@ public class NetInf {
         ArrayList<Cascade> cascadeList = new ArrayList<>();
         public CascadeList() {
         }
+        public void Add(Cascade c){
+            cascadeList.add(c);
+        }
 
     }
     public class GainPair{
@@ -55,6 +59,10 @@ public class NetInf {
             GainValue = gainValue;
             this.edgePair = edgePair;
         }
+    }
+
+    public void AddCasc(Cascade c ){
+        cascadeList.Add(c);
     }
 
     public void loadGroundTruth(String path, double betaMn , double betaMx) throws FileNotFoundException {
@@ -87,7 +95,7 @@ public class NetInf {
         }
     }
 
-    public void genCascade(Cascade C,HashMap<EdgePair,Integer> EdgesUsed){
+    public Cascade genCascade(Cascade C,HashMap<EdgePair,Integer> EdgesUsed){
         HashMap<String,Long> InfectedNIdH = new HashMap<>();
         HashMap<String,String> InfectedByH = new HashMap<>();
         Long GlobalTime;
@@ -95,7 +103,7 @@ public class NetInf {
         double alpha,beta;
 
         if(groundTruth.getNodes() ==0){
-            return;
+            return null;
         }
         while(C.Len() < 2){
             C.Clr();
@@ -160,6 +168,7 @@ public class NetInf {
             }
             EdgesUsed.put(edge,EdgesUsed.get(edge)+1);
         }
+        return C;
 
 
         }
