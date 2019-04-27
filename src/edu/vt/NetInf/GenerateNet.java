@@ -11,6 +11,14 @@ public class GenerateNet {
         netInf.loadGroundTruth("<path>",0,1);
         HashMap<NetInf.EdgePair,Integer> EdgesUsed = new HashMap<>();
         int last = 0;
+        int NCascades = 100;
+
+        for(int i = 0; (i<NCascades) || ((double)EdgesUsed.size() < - (double)NCascades/100.0 * (double)netInf.groundTruth.getEdges()); i++){
+            Cascade C = new Cascade();
+             C = netInf.genCascade(C,EdgesUsed);
+
+
+        }
 
 
 
