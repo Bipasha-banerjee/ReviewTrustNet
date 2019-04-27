@@ -15,6 +15,7 @@ public class NetInf {
     ArrayList<GainPair> GainList = new ArrayList<>();
     HashMap<EdgePair,CascadeList>  CascPerEdge = new HashMap<>();
     Graph graph, groundTruth;
+    CascadeList cascadeList = new CascadeList();
     boolean BoundOn, CompareGroundTruth;
     HashMap<EdgePair,Double> Alphas = new HashMap<>();
     HashMap<EdgePair,Double> Betas = new HashMap<>();
@@ -45,6 +46,9 @@ public class NetInf {
         ArrayList<Cascade> cascadeList = new ArrayList<>();
         public CascadeList() {
         }
+        public void Add(Cascade c){
+            cascadeList.add(c);
+        }
 
     }
     public class GainPair{
@@ -54,6 +58,20 @@ public class NetInf {
         public GainPair(Double gainValue, EdgePair edgePair) {
             GainValue = gainValue;
             this.edgePair = edgePair;
+        }
+    }
+
+    public void AddCasc(Cascade c){
+        cascadeList.Add(c);
+        for(int i=0; i< c.Len();i++){
+            if(!NodeHMap.containsKey(c.getNode(i))){
+                NodeHMap.put(c.getNode(i),new NodeInfo(c.getNode(i),1));
+            }
+            else{
+                NodeInfo nodeInfo = NodeHMap.get(c.getNode(i));
+                nodeInfo.setCascadeNumber(nodeInfo.getCascadeNumber()+1);
+                NodeHMap.put(c.getNode(i),nodeInfo);
+            }
         }
     }
 
