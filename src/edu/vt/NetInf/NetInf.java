@@ -87,7 +87,7 @@ public class NetInf {
         }
     }
 
-    public void genCascade(Cascade C,HashMap<EdgePair,Integer> EdgesUsed){
+    public Cascade genCascade(Cascade C,HashMap<EdgePair,Integer> EdgesUsed){
         HashMap<String,Long> InfectedNIdH = new HashMap<>();
         HashMap<String,String> InfectedByH = new HashMap<>();
         Long GlobalTime;
@@ -95,7 +95,7 @@ public class NetInf {
         double alpha,beta;
 
         if(groundTruth.getNodes() ==0){
-            return;
+            return null;
         }
         while(C.Len() < 2){
             C.Clr();
