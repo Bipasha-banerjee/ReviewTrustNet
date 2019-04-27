@@ -186,7 +186,7 @@ public class Graph {
         return EdgeH.containsKey(Eid);
     }
 
-    boolean isEdge(String srcNId, String dstNId, int Eid, boolean Dir){
+    boolean isEdge(String srcNId, String dstNId, boolean Dir){
         Node src = getNode(srcNId);
         for(int edge=0 ; edge < src.getOutDeg();edge++){
             Edge edge1 = getEdge(src.getOutEId(edge));

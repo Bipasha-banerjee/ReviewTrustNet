@@ -347,6 +347,15 @@ public class NetInf {
                         ii++;
                     }
                 }
+                attempts = 0;
+
+                for(int e = 0; e < GainList.size();e++){
+                    EdgePair Edge = GainList.get(e).edgePair;
+                    if(graph.isEdge(Edge.Source,Edge.Destination,true)){
+                        continue;
+                    }
+
+                }
 
             }
 
