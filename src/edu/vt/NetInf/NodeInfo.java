@@ -11,6 +11,7 @@ public class NodeInfo {
         CascadeNumber = Volume;
     }
 
+
     public String getNId() {
         return NId;
     }

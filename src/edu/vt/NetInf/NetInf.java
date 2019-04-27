@@ -64,7 +64,18 @@ public class NetInf {
     public void AddCasc(Cascade c ){
 
         cascadeList.Add(c);
+        for(int i=0; i<c.Len(); i++)
+        {
+            if(!NodeHMap.containsKey(c.getNode(i))){
+                NodeHMap.put(c.getNode(i), new NodeInfo(c.getNode(i),1));
 
+            }
+            else{
+                NodeInfo nodeinfo = NodeHMap.get(c.getNode(i));
+                nodeinfo.setCascadeNumber(nodeinfo.getCascadeNumber()+1);
+                NodeHMap.put(c.getNode(i),nodeinfo);
+            }
+        }
     }
 
     public void loadGroundTruth(String path, double betaMn , double betaMx) throws FileNotFoundException {
