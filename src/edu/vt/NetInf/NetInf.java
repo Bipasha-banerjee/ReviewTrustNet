@@ -321,6 +321,26 @@ public class NetInf {
         return p;
         }
 
+        public EdgePair GetBestEdge(double CurProb, double LastGain, boolean msort, int attempts)
+        {
+            EdgePair BestEdge;
+            double BestGain = Double.MIN_VALUE;
+            ArrayList<GainPair> gainListToSort = new ArrayList<>();
+            ArrayList<Integer> ZeroEdges = new ArrayList<>();
+            int BestGainIndex = -1;
+
+            if(msort){
+                for(int i=0; i < Math.min(attempts - 1,GainList.size());i++){
+                    gainListToSort.add(GainList.get(i));
+
+                }
+                gainListToSort.sort(); ///////////Start from here
+
+            }
+
+
+          //  TVec<TPair<TFlt, TIntPr> > EdgeGainCopyToSortV;
+        }
 
     public void GreedyOpt(int MaxEdges)
     {
@@ -328,6 +348,12 @@ public class NetInf {
         double LastGain =Double.MAX_VALUE;
         int attempts = 0;
         Boolean msort = false;
+
+        for(int k=0; k< MaxEdges && GainList.size()>0; k++ )
+        {
+            double prev = CurProb;
+             EdgePair BestE = GetBestEdge(CurProb, LastGain, msort, attempts);
+        }
 
     }
 }
