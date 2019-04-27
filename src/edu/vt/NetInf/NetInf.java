@@ -62,7 +62,9 @@ public class NetInf {
     }
 
     public void AddCasc(Cascade c ){
+
         cascadeList.Add(c);
+
     }
 
     public void loadGroundTruth(String path, double betaMn , double betaMx) throws FileNotFoundException {

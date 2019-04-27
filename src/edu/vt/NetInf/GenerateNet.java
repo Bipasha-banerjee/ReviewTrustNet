@@ -21,8 +21,6 @@ public class GenerateNet {
                  netInf.AddCasc(C);
              }
 
-
-                 netInf.cascadeList.Add(C);
              }
 
 
