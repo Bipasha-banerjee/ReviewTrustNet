@@ -22,6 +22,7 @@ public class NetInf {
     HashMap<EdgePair,Long> Deltas = new HashMap<>();
     HashMap<String,Long> TimeH = new HashMap<>();
 
+
     public NetInf() {
         BoundOn = false;
         CompareGroundTruth = false;
@@ -232,6 +233,15 @@ public class NetInf {
         cascIdList.add(i);
         }
 
+        public int Size()
+        {
+            return cascIdList.size();
+        }
+        public int get(int i)
+        {
+            return cascIdList.get(i);
+        }
+
     }
     public void init()
     {
@@ -251,6 +261,38 @@ public class NetInf {
                 if(!CascPN.containsKey(cascadeList.get(c).getNode(i)))
                 {
                     CascPN.put(cascadeList.get(c).getNode(i),new CascIdList());
+                }
+                CascIdList cascIdList =  CascPN.get(cascadeList.get(c).getNode(i));
+                cascIdList.Add(c);
+                CascPN.put(cascadeList.get(c).getNode(i),cascIdList);//check how it performs
+            }
+            cascadeList.get(c).initProb();
+        }
+
+        Iterator it = graph.NodeH.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry) it.next();
+            String NId = (String) pair.getKey();
+            CascIdList cIdList = CascPN.get(NId);
+            for(int c=0; c<cascadeList.Size(); c++)
+            {
+                for(int i=0;i<cascadeList.get(c).Len(); i++) {
+                    if(cascadeList.get(cIdList.get(c)).getNode(i)==NId){
+                        continue;
+                    }
+                    if(cascadeList.get(cIdList.get(c)).getUnixTime(cascadeList.get(cIdList.get(c)).getNode(i)) < cascadeList.get(cIdList.get(c)).getUnixTime(NId)){
+                        if(!CascPerEdge.containsKey(new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)))
+
+                        {
+                         graph.AddEdge(cascadeList.get(cIdList.get(c)).getNode(i),NId,-1);
+                         GainList.add(new GainPair(Double.MAX_VALUE,new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)));
+                         CascPerEdge.put((new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)), new CascadeList());
+                        }
+
+                        CascadeList cascadeList1 = CascPerEdge.get(new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId));
+                        cascadeList1.Add(cascadeList.get(c));
+                        CascPerEdge.put((new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)), cascadeList1);
+                    }
                 }
             }
         }

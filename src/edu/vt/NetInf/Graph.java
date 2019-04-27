@@ -93,8 +93,8 @@ public class Graph {
 
     private Integer  MxEId;
 
-    private Map<String, Node> NodeH = new LinkedHashMap<>();
-    private Map<Integer,Edge> EdgeH = new LinkedHashMap<>();
+    public Map<String, Node> NodeH = new LinkedHashMap<>();
+    public Map<Integer,Edge> EdgeH = new LinkedHashMap<>();
 
     //TSIn and TSOut??
 
