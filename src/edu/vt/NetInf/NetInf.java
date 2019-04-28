@@ -412,6 +412,18 @@ public class NetInf {
         {
             double prev = CurProb;
              EdgePair BestE = GetBestEdge(CurProb, LastGain, msort, attempts);
+            if (BestE == new EdgePair(null, null)) // if we cannot add more edges, we stop
+                break;
+            graph.AddEdge(BestE.Source,BestE.Destination,-1);
+           /* double Bound = 0;
+            if (BoundOn)
+                Bound = GetBound(BestE, prev);
+*/
+            CascIdList cascEdge = CascPerEdge.get(BestE);
+            for (int c = 0; c < cascEdge.Size(); c++) {
+                cascadeList.get(cascEdge.get(c)).updateProb(BestE.Source, BestE.Destination, true,Alphas); // update probabilities
+            }
+
         }
 
     }
