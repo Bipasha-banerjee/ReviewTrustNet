@@ -321,47 +321,85 @@ public class NetInf {
         return p;
         }
 
-        public EdgePair GetBestEdge(double CurProb, double LastGain, boolean msort, int attempts)
-        {
-            EdgePair BestEdge;
+        public EdgePair GetBestEdge(double CurProb, double LastGain, boolean msort, int attempts) {
+            EdgePair BestEdge= new EdgePair(null,null);
             double BestGain = Double.MIN_VALUE;
             ArrayList<GainPair> gainListToSort = new ArrayList<>();
             ArrayList<Integer> ZeroEdges = new ArrayList<>();
             int BestGainIndex = -1;
 
-            if(msort){
-                for(int i=0; i < Math.min(attempts - 1,GainList.size());i++){
+            if (msort) {
+                for (int i = 0; i < Math.min(attempts - 1, GainList.size()); i++) {
                     gainListToSort.add(GainList.get(i));
 
                 }
-                gainListToSort.sort(); ///////////Start from here
+                gainListToSort.sort(new sortGainList());
 
-                for(int i=0, ii=0, j=0;ii<gainListToSort.size();j++){
-                    if((i+gainListToSort.size()<GainList.size())&&
-                            (gainListToSort.get(ii).GainValue < GainList.get(i+gainListToSort.size()).GainValue)){
-                        GainList.add(j,GainList.get(gainListToSort.size()+i));
+                for (int i = 0, ii = 0, j = 0; ii < gainListToSort.size(); j++) {
+                    if ((i + gainListToSort.size() < GainList.size()) &&
+                            (gainListToSort.get(ii).GainValue < GainList.get(i + gainListToSort.size()).GainValue)) {
+                        GainList.add(j, GainList.get(gainListToSort.size() + i));
                         i++;
-                    }
-                    else{
-                        GainList.add(j,gainListToSort.get(ii));
+                    } else {
+                        GainList.add(j, gainListToSort.get(ii));
                         ii++;
                     }
                 }
                 attempts = 0;
 
-                for(int e = 0; e < GainList.size();e++){
+                for (int e = 0; e < GainList.size(); e++) {
                     EdgePair Edge = GainList.get(e).edgePair;
-                    if(graph.isEdge(Edge.Source,Edge.Destination,true)){
+                    if (graph.isEdge(Edge.Source, Edge.Destination, true)) {
                         continue;
                     }
 
+                    double EProb = GetAllCascProb(Edge.Source, Edge.Destination);
+                    GainList.get(e).GainValue = EProb;
+                    if (BestGain < EProb) {
+                        BestGain = EProb;
+                        BestGainIndex = e;
+                        BestEdge = Edge;
+                    }
+                    attempts++;
+
+                    if (!graph.isEdge(Edge.Source, Edge.Destination, true) && graph.getEdges() > 1) {
+                        if (EProb == 0)
+                            ZeroEdges.add(e);
+
+                    }
+
+                    if (e + 1 == GainList.size() || BestGain >= GainList.get(e + 1).GainValue) {
+                        CurProb += BestGain;
+
+                        if (BestGain == 0)
+                            return new EdgePair(null, null);
+                        GainList.remove(BestGainIndex);
+
+                        for (int i=ZeroEdges.size()-1; i>=0; i--) {
+                            if (ZeroEdges.get(i) > BestGainIndex)
+                                GainList.remove(ZeroEdges.get(i-1));
+                            else
+                                GainList.remove(ZeroEdges.get(i));
+                        }
+                        if (GainList.size() > 2) { attempts -= (ZeroEdges.size()-1); }
+
+                        msort = (attempts > 1);
+
+                        LastGain = BestGain;
+
+                        return BestEdge;
+                    }
                 }
 
+
+
             }
-
-
-          //  TVec<TPair<TFlt, TIntPr> > EdgeGainCopyToSortV;
+            return new EdgePair(null,null);
         }
+
+
+                //  TVec<TPair<TFlt, TIntPr> > EdgeGainCopyToSortV;
+
 
     public void GreedyOpt(int MaxEdges)
     {
@@ -374,6 +412,14 @@ public class NetInf {
         {
             double prev = CurProb;
              EdgePair BestE = GetBestEdge(CurProb, LastGain, msort, attempts);
+        }
+
+    }
+
+    class  sortGainList implements Comparator<GainPair>{
+        public int compare(GainPair a, GainPair b){
+            return (int) (b.GainValue - a.GainValue);
+
         }
 
     }
