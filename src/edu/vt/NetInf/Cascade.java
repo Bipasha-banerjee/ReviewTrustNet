@@ -136,7 +136,7 @@ public class Cascade {
         NIdHitH = sortedMap;
     }
 
-Double TransProb(String N1, String N2, double alpha) {
+Double TransProb(String N1, String N2, double alpha, double alphaParam) {
     if (!IsNode(N1) || !IsNode(N2)) {
         return Eps;
     }
@@ -144,13 +144,13 @@ Double TransProb(String N1, String N2, double alpha) {
         return Eps;
     }
     if (Model == 0) {
-        return alpha * exp(-alpha * (getUnixTime(N2) - getUnixTime(N1))); //exponential
+        return (alpha * exp(-alpha * (getUnixTime(N2) - getUnixTime(N1))))*alphaParam; //exponential
     }
     else if(Model == 1){
-        return (alpha-1)+pow((getUnixTime(N2) - getUnixTime(N1)),-alpha); //Power-law
+        return ((alpha-1)+pow((getUnixTime(N2) - getUnixTime(N1)),-alpha))*alphaParam; //Power-law
     }
     else {
-        return alpha * (getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)); // rayleigh
+        return alpha * ((getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)))*alphaParam; // rayleigh
     }
 }
 
@@ -188,7 +188,7 @@ void initProb(){
         }
 }
 
-double updateProb(String N1, String N2, boolean update, HashMap<NetInf.EdgePair,Double> Alphas){
+double updateProb(String N1, String N2, boolean update, HashMap<NetInf.EdgePair,Double> Alphas, double alphaParam){
         if(!IsNode(N1) || !IsNode(N2)){
             return CurProb;
         }
@@ -209,8 +209,8 @@ double updateProb(String N1, String N2, boolean update, HashMap<NetInf.EdgePair,
         alphaParent = Alphas.get(new NetInf.EdgePair(getParent(N2), N2));
 
     }
-        double P1 = log(TransProb(getParent(N2),N2,alphaParent));
-        double P2 = log(TransProb(N1,N2,alpha));
+        double P1 = log(TransProb(getParent(N2),N2,alphaParent,alphaParam));
+        double P2 = log(TransProb(N1,N2,alpha,alphaParam));
         if(P1<P2){
             if(update){
                 CurProb = CurProb - P1 + P2;

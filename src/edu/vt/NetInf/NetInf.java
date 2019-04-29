@@ -17,6 +17,7 @@ public class NetInf {
     CascadeList cascadeList = new CascadeList();
     Graph graph, groundTruth;
     boolean BoundOn, CompareGroundTruth;
+    double alphaParam = 1.0;
     HashMap<EdgePair,Double> Alphas = new HashMap<>();
     HashMap<EdgePair,Double> Betas = new HashMap<>();
     HashMap<EdgePair,Long> Deltas = new HashMap<>();
@@ -305,7 +306,7 @@ public class NetInf {
 
         if (n1.equals(null) && n2.equals(null)) {
             for (int c = 0; c < cascadeList.Size(); c++) {
-                p += cascadeList.get(c).updateProb(n1, n2, false, Alphas ); }
+                p += cascadeList.get(c).updateProb(n1, n2, false, Alphas, alphaParam); }
             return p;
             }
         CascIdList cList = new CascIdList();
@@ -316,7 +317,7 @@ public class NetInf {
 
         for(int c=0;c<cList.Size();c++)
         {
-            p+=(cascadeList.get(cList.get(c)).updateProb(n1,n2,false,Alphas))-(cascadeList.get(cList.get(c)).CurProb);
+            p+=(cascadeList.get(cList.get(c)).updateProb(n1,n2,false,Alphas,alphaParam))-(cascadeList.get(cList.get(c)).CurProb);
         }
         return p;
         }
@@ -421,7 +422,7 @@ public class NetInf {
 */
             CascIdList cascEdge = CascPerEdge.get(BestE);
             for (int c = 0; c < cascEdge.Size(); c++) {
-                cascadeList.get(cascEdge.get(c)).updateProb(BestE.Source, BestE.Destination, true,Alphas); // update probabilities
+                cascadeList.get(cascEdge.get(c)).updateProb(BestE.Source, BestE.Destination, true,Alphas,alphaParam); // update probabilities
             }
 
         }
