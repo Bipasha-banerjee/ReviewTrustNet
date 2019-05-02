@@ -78,17 +78,17 @@ public class PrepareData {
         //System.out.println(list.get(1).get(0));
         //System.out.println(list.get(2).get(0));
 
-        for(int i=0; i< list.size();i++){
+        //for(int i=0; i< list.size();i++){
 
 
-            writeToFile(i,list.get(i));
+            //writeToFile(i,list.get(i));
 
 
-        }
+        //}
 
 
 
-        // writeToFile();
+        writeToFile();
 
 
     }
@@ -223,6 +223,25 @@ public class PrepareData {
 
 
 
+        }
+        printWriter.close();
+
+    }
+
+    static public void writeToFile(){
+        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
+
+        FileWriter fileWriter = new FileWriter(path+"GroundTruth.csv");
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+
+
+        //String prevID = tupleList.get(0).productID;
+        for(int i =0; i < tupleList.size(); i++){
+
+
+            printWriter.println(tupleList.get(i).toString());
+
+            // System.out.println(lst.get(0));
         }
         printWriter.close();
 
