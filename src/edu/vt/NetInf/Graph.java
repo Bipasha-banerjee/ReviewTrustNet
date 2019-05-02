@@ -61,6 +61,7 @@ public class Graph {
     class Edge{
         private Integer id;
         private String srcNId, dstNId;
+        private Double value = 0.0;
 
         public Edge(){
             id = -1;
@@ -74,8 +75,19 @@ public class Graph {
             this.dstNId = dstNId;
         }
 
+        public Edge(Integer id, String srcNId, String dstNId, double value) {
+            this.id = id;
+            this.srcNId = srcNId;
+            this.dstNId = dstNId;
+            this.value = value;
+        }
+
         //TSIn and TSout
 
+
+        public Double getValue() {
+            return value;
+        }
 
         public Integer getId() {
             return id;
@@ -220,6 +232,22 @@ public class Graph {
         }
         return Eid;
     }
+
+    int AddEdge(String srcNid, String dstNid, int Eid,double value){
+        if(Eid == -1){
+            Eid = MxEId;
+            MxEId++;
+        }
+        if(!isEdge(Eid)){
+            if(isNode(srcNid) && isNode((dstNid))){
+                EdgeH.put(Eid, new Edge(Eid,srcNid,dstNid,value));
+                getNode(srcNid).outEid.add(Eid);
+                getNode(dstNid).inEid.add(Eid);
+            }
+        }
+        return Eid;
+    }
+
 
     void DelEdge(int EId){
         if(isEdge(EId)){

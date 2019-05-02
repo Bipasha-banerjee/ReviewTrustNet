@@ -1,10 +1,7 @@
 package edu.vt.NetInf;
 
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -402,20 +399,24 @@ public class NetInf {
                 //  TVec<TPair<TFlt, TIntPr> > EdgeGainCopyToSortV;
 
 
-    public void GreedyOpt(int MaxEdges)
+    public void GreedyOpt()
     {
         double CurProb = GetAllCascProb(null, null);
         double LastGain =Double.MAX_VALUE;
         int attempts = 0;
         Boolean msort = false;
+        Cascade x = new Cascade();
 
-        for(int k=0; k< MaxEdges && GainList.size()>0; k++ )
+        while(true)
         {
             double prev = CurProb;
              EdgePair BestE = GetBestEdge(CurProb, LastGain, msort, attempts);
             if (BestE == new EdgePair(null, null)) // if we cannot add more edges, we stop
                 break;
-            graph.AddEdge(BestE.Source,BestE.Destination,-1);
+
+            double value = x.TransProb(BestE.Source,BestE.Destination,alphaParam,Alphas.get(new EdgePair(BestE.Source,BestE.Destination)));
+
+            graph.AddEdge(BestE.Source,BestE.Destination,-1,value);
            /* double Bound = 0;
             if (BoundOn)
                 Bound = GetBound(BestE, prev);
@@ -425,9 +426,24 @@ public class NetInf {
                 cascadeList.get(cascEdge.get(c)).updateProb(BestE.Source, BestE.Destination, true,Alphas,alphaParam); // update probabilities
             }
 
+
         }
 
     }
+
+    void saveGraphText() throws IOException {
+        int size = graph.getEdges();
+        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
+
+        FileWriter fileWriter = new FileWriter(path+"outputGraph.csv");
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+        for(int i =0; i< size;i++){
+            Graph.Edge edge  = graph.getEdge(i);
+            printWriter.println(edge.getId() + "," + edge.getSrcNId() + "," + edge.getDstNId() + "," + edge.getValue());
+        }
+    }
+
+
 
     class  sortGainList implements Comparator<GainPair>{
         public int compare(GainPair a, GainPair b){
@@ -436,6 +452,8 @@ public class NetInf {
         }
 
     }
+
+
 }
 
 

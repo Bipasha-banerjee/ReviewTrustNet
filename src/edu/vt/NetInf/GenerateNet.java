@@ -20,7 +20,11 @@ public class GenerateNet {
 
                  netInf.AddCasc(C);
              }
-             }
+        }
+        netInf.init();
+        netInf.GreedyOpt();
+
+
 
         }
 

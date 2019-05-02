@@ -127,8 +127,15 @@ public class PrepareData {
            double div =0;
            if(i!=0 && j!=0)
            {
-                div = (Double.valueOf(i))/(Double.valueOf(j));
+               if(i==1 && j==1){
+                   div = 0.7;
+               }
+               else{
+                   div = (Double.valueOf(i))/(Double.valueOf(j));
+               }
+
            }
+
            else
                div = 0.01;
 

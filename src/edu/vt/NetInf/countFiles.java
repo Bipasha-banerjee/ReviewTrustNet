@@ -12,7 +12,7 @@ public class countFiles {
     public static void main(String args[]) throws IOException {
 
         System.out.println("Inside fetchIntoList");
-        File inputFile = new File("/Users/bipashabanerjee/IdeaProjects/wordCount/src/Cell_Phones_and_Accessories_5.json");
+        File inputFile = new File("C:\\Users\\smrid\\Downloads\\reviews_Clothing_Shoes_and_Jewelry_5.json/Clothing_Shoes_and_Jewelry_5.json");
         // BufferedReader in
         //       = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/wordCount/src/data_3.json"));
         Scanner s = new Scanner(inputFile);
