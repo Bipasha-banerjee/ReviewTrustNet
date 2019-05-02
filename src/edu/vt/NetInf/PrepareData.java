@@ -228,7 +228,7 @@ public class PrepareData {
 
     }
 
-    static public void writeToFile(){
+    static public void writeToFile() throws IOException {
         String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
 
         FileWriter fileWriter = new FileWriter(path+"GroundTruth.csv");
