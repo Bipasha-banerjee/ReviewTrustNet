@@ -3,7 +3,7 @@ package edu.vt.NetInf;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Graph {
+public class outputGraph {
     class Node{
         private String Id;
 
@@ -101,12 +101,34 @@ public class Graph {
             return dstNId;
         }
     }
+
+    public class EdgePair{
+        public String Source;
+        public String Destination;
+
+        public EdgePair(String source, String destination) {
+            Source = source;
+            Destination = destination;
+        }
+    }
+
+    public class valueList {
+        ArrayList<Double> valueList;
+        public valueList(){
+            valueList = new ArrayList<>();
+        }
+        void Add(double d){valueList.add(d);}
+        double Get(int i) { return  valueList.get(i);}
+        int Size() {return  valueList.size();}
+        ArrayList<Double> get(){ return  valueList;}
+    }
     //Iterators to add?
 
     private Integer  MxEId;
 
     public Map<String, Node> NodeH = new LinkedHashMap<>();
-    public Map<Integer,Edge> EdgeH = new LinkedHashMap<>();
+    public ArrayList<Edge> EdgeH = new ArrayList<>();
+    public Map<EdgePair,valueList> valueH = new LinkedHashMap<>();
 
     //TSIn and TSOut??
 
@@ -138,7 +160,7 @@ public class Graph {
     }
 
     String AddNode(Node N){
-       return AddNode(N.Id);
+        return AddNode(N.Id);
     }
 
     void DelNode(String Nid){
@@ -195,7 +217,7 @@ public class Graph {
     }
 
     boolean isEdge(int Eid){
-        return EdgeH.containsKey(Eid);
+        return EdgeH.contains(Eid);
     }
 
     boolean isEdge(String srcNId, String dstNId, boolean Dir){
@@ -245,7 +267,7 @@ public class Graph {
         }
         if(!isEdge(Eid)){
             if(isNode(srcNid) && isNode((dstNid))){
-                EdgeH.put(Eid, new Edge(Eid,srcNid,dstNid));
+                EdgeH.add(Eid, new Edge(Eid,srcNid,dstNid));
                 getNode(srcNid).outEid.add(Eid);
                 getNode(dstNid).inEid.add(Eid);
             }
@@ -260,7 +282,7 @@ public class Graph {
         }
         if(!isEdge(Eid)){
             if(isNode(srcNid) && isNode((dstNid))){
-                EdgeH.put(Eid, new Edge(Eid,srcNid,dstNid,value));
+                EdgeH.add(Eid, new Edge(Eid,srcNid,dstNid,value));
                 getNode(srcNid).outEid.add(Eid);
                 getNode(dstNid).inEid.add(Eid);
             }
@@ -292,18 +314,35 @@ public class Graph {
     boolean Empty() { return getNodes()==0; }
     void Clr() { MxEId=0;  NodeH.clear();  EdgeH.clear(); }
 
-    HashMap<Integer,String> initNodeIdH(){
-        HashMap<Integer,String> NodeIdH = new HashMap<>();
+    HashMap<String,Integer> initNodeIdH(){
+        HashMap<String,Integer> NodeIdH = new HashMap<>();
         Iterator it = NodeH.keySet().iterator();
         int i = 0;
         while(it.hasNext()){
             String node = (String) it.next();
-            NodeIdH.put(i,node);
+            NodeIdH.put(node,i);
             i++;
-
         }
         return NodeIdH;
 
+    }
+
+    boolean containsEdge(String src,String dst){
+        return  valueH.containsKey(new EdgePair(src,dst));
+    }
+
+    void create(String src, String dst){
+        valueH.put(new EdgePair(src,dst),new valueList());
+    }
+
+    void AddEdgeValue(String src, String dst,double value){
+        valueList vl = valueH.get(new EdgePair(src,dst));
+        vl.Add(value);
+        valueH.put(new EdgePair(src,dst),vl);
+    }
+
+    ArrayList<Double> getEdgeValue(String src, String dst){
+        return valueH.get(new EdgePair(src,dst)).get();
     }
 
 

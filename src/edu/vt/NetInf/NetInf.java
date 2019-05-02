@@ -13,12 +13,16 @@ public class NetInf {
     HashMap<EdgePair,CascIdList>  CascPerEdge = new HashMap<>();
     CascadeList cascadeList = new CascadeList();
     Graph graph, groundTruth;
+    outputGraph outputGraph = new outputGraph();
     boolean BoundOn, CompareGroundTruth;
     double alphaParam = 1.0;
     HashMap<EdgePair,Double> Alphas = new HashMap<>();
     HashMap<EdgePair,Double> Betas = new HashMap<>();
     HashMap<EdgePair,Long> Deltas = new HashMap<>();
     HashMap<String,Long> TimeH = new HashMap<>();
+    double[][] CMatrix;
+    double thresholdEigen = 0.5;
+    int trusted = 100;
 
 
     public NetInf() {
@@ -29,6 +33,19 @@ public class NetInf {
     public NetInf(boolean boundOn, boolean compareGroundTruth) {
         BoundOn = boundOn;
         CompareGroundTruth = compareGroundTruth;
+    }
+
+    public void clear(){
+        NodeHMap.clear();
+        GainList.clear();
+        CascPerEdge.clear();
+        cascadeList.clear();
+        graph.Clr();
+        groundTruth.Clr();
+        Alphas.clear();
+        Betas.clear();
+        Deltas.clear();
+        TimeH.clear();
     }
 
     public static class EdgePair{
@@ -56,6 +73,7 @@ public class NetInf {
         {
             return cascadeList.get(i);
         }
+        public void clear(){cascadeList.clear();}
     }
     public class GainPair{
         public Double GainValue;
@@ -443,6 +461,71 @@ public class NetInf {
         }
     }
 
+    void AddtoOutputGraph(){
+        Iterator it = graph.NodeH.keySet().iterator();
+        while(it.hasNext()){
+            String NId = (String) it.next();
+            if(!outputGraph.isNode(NId)) {
+                outputGraph.AddNode(NId);
+            }
+        }
+        for(int i=0; i< graph.getEdges();i++){
+            Graph.Edge edge = graph.getEdge(i);
+            String srcId = edge.getSrcNId();
+            String dstId = edge.getDstNId();
+
+            double value = edge.getValue();
+            outputGraph.AddEdge(srcId,dstId,-1,value);
+            if(!outputGraph.containsEdge(srcId,dstId)){
+                outputGraph.create(srcId,dstId);
+            }
+            outputGraph.AddEdgeValue(srcId,dstId,value);
+        }
+
+    }
+
+    void setupCmatrix(){
+        HashMap<String,Integer> NodeIdH = outputGraph.initNodeIdH();
+        CMatrix = new double[NodeIdH.size()][NodeIdH.size()];
+        Iterator it = outputGraph.valueH.entrySet().iterator();
+        while(it.hasNext()){
+            Map.Entry pair = (Map.Entry) it.next();
+            edu.vt.NetInf.outputGraph.EdgePair ep = (outputGraph.EdgePair) pair.getKey();
+            ArrayList<Double> values = outputGraph.getEdgeValue(ep.Source,ep.Destination);
+            double sij = 0.0;
+            for(int i=0; i < values.size();i++){
+                if(values.get(i) > thresholdEigen){
+                    sij += 1;
+                }
+                else{
+                    sij -= 1;
+                }
+            }
+
+            CMatrix[NodeIdH.get(ep.Source)][NodeIdH.get(ep.Destination)] = sij;
+
+        }
+
+        for(int i =0; i < CMatrix.length;i++){
+            double total = 0;
+            for (int j =0; j< CMatrix[i].length;j++){
+                total += CMatrix[i][j];
+            }
+
+            for( int j =0; j < CMatrix[i].length;j++){
+               if(total>0){
+                   CMatrix[i][j] = CMatrix[i][j]/total;
+                }
+               else{
+                   CMatrix[i][j] = 1/trusted;
+               }
+            }
+        }
+
+        }
+
+
+
 
 
     class  sortGainList implements Comparator<GainPair>{
@@ -452,6 +535,8 @@ public class NetInf {
         }
 
     }
+
+
 
 
 }

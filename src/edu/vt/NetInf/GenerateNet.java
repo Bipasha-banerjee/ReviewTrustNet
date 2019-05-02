@@ -9,26 +9,30 @@ import java.util.HashMap;
 public class GenerateNet {
     public static void main(String[] args) throws IOException {
         NetInf netInf = new NetInf();
-        netInf.loadGroundTruth("<path>",0,1);
-        HashMap<NetInf.EdgePair,Integer> EdgesUsed = new HashMap<>();
-        int last = 0;
-        int NCascades = 100;
+        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
+        for (int j = 0; j < 900; j++) {
+            netInf.clear();
+            netInf.loadGroundTruth(path+"GroundTruth"+j+".csv", 0, 1);
+            HashMap<NetInf.EdgePair, Integer> EdgesUsed = new HashMap<>();
+            int last = 0;
+            int NCascades = 100;
 
-        for(int i = 0; (i<NCascades) || ((double)EdgesUsed.size() < - (double)NCascades/100.0 * (double)netInf.groundTruth.getEdges()); i++){
-            Cascade C = new Cascade();
-             C = netInf.genCascade(C,EdgesUsed);
-             if(C!=null){
+            for (int i = 0; (i < NCascades) || ((double) EdgesUsed.size() < -(double) NCascades / 100.0 * (double) netInf.groundTruth.getEdges()); i++) {
+                Cascade C = new Cascade();
+                C = netInf.genCascade(C, EdgesUsed);
+                if (C != null) {
 
-                 netInf.AddCasc(C);
-             }
+                    netInf.AddCasc(C);
+                }
+            }
+            netInf.init();
+            netInf.GreedyOpt();
+            netInf.saveGraphText();
+            netInf.AddtoOutputGraph();
+
+
         }
-        netInf.init();
-        netInf.GreedyOpt();
-        netInf.saveGraphText();
-
-
-
-        }
+    }
 
 
 
