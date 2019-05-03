@@ -44,7 +44,7 @@ public class countFiles {
             myMap.put(reviewerID, myMap.get(reviewerID)+1);
 
         }
-        System.out.println("count"+count);
+       // System.out.println("count"+count);
 
       /*  String outputPath = "/Users/bipashabanerjee/IdeaProjects/wordCount/src/";
 

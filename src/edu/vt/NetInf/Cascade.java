@@ -1,5 +1,6 @@
 package edu.vt.NetInf;
 
+import java.math.BigInteger;
 import java.util.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -88,11 +89,11 @@ public class Cascade {
         return Alpha;
     }
 
-    public long getUnixTime(String NId){
+    public BigInteger getUnixTime(String NId){
         return NIdHitH.get(NId).unixTime;
     }
 
-    public void Add(String Nid, Long unixTime){
+    public void Add(String Nid, BigInteger unixTime){
         NIdHitH.put(Nid,new HitInfo(Nid,unixTime));
     }
 
@@ -140,17 +141,17 @@ Double TransProb(String N1, String N2, double alpha, double alphaParam) {
     if (!IsNode(N1) || !IsNode(N2)) {
         return Eps;
     }
-    if (getUnixTime(N1) >= getUnixTime(N2)) {
+    if (getUnixTime(N1).compareTo(getUnixTime(N2)) != -1) {
         return Eps;
     }
     if (Model == 0) {
-        return (alpha * exp(-alpha * (getUnixTime(N2) - getUnixTime(N1))))*alphaParam; //exponential
+        return (alpha * exp(((getUnixTime(N2).subtract(getUnixTime(N1))).doubleValue())*-alpha))*alphaParam; //exponential
     }
     else if(Model == 1){
-        return ((alpha-1)+pow((getUnixTime(N2) - getUnixTime(N1)),-alpha))*alphaParam; //Power-law
+        return ((alpha-1)+pow((getUnixTime(N2).subtract(getUnixTime(N1))).doubleValue(),-alpha))*alphaParam; //Power-law
     }
     else {
-        return alpha * ((getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)))*alphaParam; // rayleigh
+        return alpha * ((getUnixTime(N2).subtract(getUnixTime(N1))).doubleValue() * exp(-0.5 * alpha * pow((getUnixTime(N2).subtract(getUnixTime(N1))).doubleValue(), 2)))*alphaParam; // rayleigh
     }
 }
 
@@ -192,7 +193,7 @@ double updateProb(String N1, String N2, boolean update, HashMap<NetInf.EdgePair,
         if(!IsNode(N1) || !IsNode(N2)){
             return CurProb;
         }
-        if(getUnixTime(N1)>getUnixTime(N2)){
+        if(getUnixTime(N1).compareTo(getUnixTime(N2)) ==1){
             return CurProb;
         }
 
@@ -240,7 +241,7 @@ double updateProb(String N1, String N2, boolean update, HashMap<NetInf.EdgePair,
 class compareNId implements Comparator<HitInfo>{
 
     public int compare(HitInfo a, HitInfo b){
-        return (int) (a.unixTime - b.unixTime);
+        return (a.unixTime.compareTo(b.unixTime));
     }
 
 

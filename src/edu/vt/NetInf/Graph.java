@@ -175,9 +175,11 @@ public class Graph {
 
     String GetRndNId(){
         Collection coll = NodeH.values();
-        Node[] nodes = (Node[]) coll.toArray();
+       // System.out.println(coll.toArray());
+        Object[] nodes = coll.toArray();
         int randomInt = ThreadLocalRandom.current().nextInt(0,nodes.length);
-        return nodes[randomInt].Id;
+        Node x = (Node) nodes[randomInt];
+        return x.Id;
 
     }
 

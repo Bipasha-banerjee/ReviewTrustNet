@@ -4,6 +4,7 @@ package edu.vt.NetInf;
 import Jama.Matrix;
 
 import java.io.*;
+import java.math.BigInteger;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -14,14 +15,15 @@ public class NetInf {
     ArrayList<GainPair> GainList = new ArrayList<>();
     HashMap<EdgePair,CascIdList>  CascPerEdge = new HashMap<>();
     CascadeList cascadeList = new CascadeList();
-    Graph graph, groundTruth;
+    Graph graph= new Graph();
+    Graph groundTruth = new Graph();
     outputGraph outputGraph = new outputGraph();
     boolean BoundOn, CompareGroundTruth;
     double alphaParam = 1.0;
     HashMap<EdgePair,Double> Alphas = new HashMap<>();
     HashMap<EdgePair,Double> Betas = new HashMap<>();
-    HashMap<EdgePair,Long> Deltas = new HashMap<>();
-    HashMap<String,Long> TimeH = new HashMap<>();
+    HashMap<EdgePair,BigInteger> Deltas = new HashMap<>();
+    HashMap<String,BigInteger> TimeH = new HashMap<>();
     double[][] CMatrix;
     double[][] PMatrix;
     double thresholdEigen = 0.5;
@@ -108,7 +110,7 @@ public class NetInf {
         }
     }
 
-    public void loadGroundTruth(String path, double betaMn , double betaMx) throws FileNotFoundException {
+    public void loadGroundTruth(String path, double betaMn , double betaMx) throws FileNotFoundException, NumberFormatException {
 
         File file =
                 new File(path);
@@ -118,30 +120,34 @@ public class NetInf {
             String line = sc.nextLine();
             String[] lineSplit = line.split(",");
             groundTruth.AddNode(lineSplit[0]);
+           //BigInteger l = new BigInteger("1234647748828723642992749");
+            // System.out.println(l);
             if(!TimeH.containsKey(lineSplit[0])){
-                TimeH.put(lineSplit[0], Long.valueOf(lineSplit[3]));
+              //  System.out.println(lineSplit[0]);
+                TimeH.put(lineSplit[0], new BigInteger(lineSplit[3]));
             }
         }
+
         Scanner sc1 = new Scanner(file);
 
         while(sc1.hasNextLine()){
-            String line = sc.nextLine();
+            String line = sc1.nextLine();
             String[] lineSplit = line.split(",");
             groundTruth.AddEdge(lineSplit[0], lineSplit[1],-1);
             Alphas.put(new EdgePair(lineSplit[0],lineSplit[1]), Double.valueOf(lineSplit[2]));
             double boundedRandomValue = ThreadLocalRandom.current().nextDouble(0, 1);
             Betas.put(new EdgePair(lineSplit[0],lineSplit[1]), boundedRandomValue);
-            Deltas.put(new EdgePair(lineSplit[0],lineSplit[1]),Long.valueOf(lineSplit[4]) - Long.valueOf(lineSplit[3]));
-            System.out.println(groundTruth.getNodes() + "Nodes and" + groundTruth.getEdges() + "Edges added.");
+            Deltas.put(new EdgePair(lineSplit[0],lineSplit[1]),new BigInteger(lineSplit[4]).subtract(new BigInteger(lineSplit[3])));
+            System.out.println(groundTruth.getNodes() + "Nodes and " + groundTruth.getEdges() + "Edges added.");
 
 
         }
     }
 
     public Cascade genCascade(Cascade C,HashMap<EdgePair,Integer> EdgesUsed){
-        HashMap<String,Long> InfectedNIdH = new HashMap<>();
+        HashMap<String,BigInteger> InfectedNIdH = new HashMap<>();
         HashMap<String,String> InfectedByH = new HashMap<>();
-        Long GlobalTime;
+        BigInteger GlobalTime;
         String StartNId;
         double alpha,beta;
 
@@ -156,7 +162,7 @@ public class NetInf {
             StartNId = groundTruth.GetRndNId();
             GlobalTime = TimeH.get(StartNId);
             InfectedNIdH.put(StartNId,TimeH.get(StartNId));
-            Long window = GlobalTime + 500000000;
+            BigInteger window = GlobalTime.add(new BigInteger("500000000")) ;
 
             while(true){
 
@@ -164,37 +170,43 @@ public class NetInf {
                 Iterator it = InfectedNIdH.entrySet().iterator();
                 Map.Entry pair = (Map.Entry) it.next();
                 String NId = (String) pair.getKey();
-                GlobalTime = (Long) pair.getValue();
-                if(GlobalTime>=window){
+                GlobalTime = (BigInteger) pair.getValue();
+                if(GlobalTime.compareTo(window) == 1 || GlobalTime.compareTo(window) ==0 ){
                     break;
                 }
                 C.Add(NId,GlobalTime);
 
                 Graph.Node N = groundTruth.getNode(NId);
+
                 for(int e=0; e<N.getOutDeg();e++) {
                     int EId = N.getOutEId(e);
                     Graph.Edge edge = groundTruth.getEdge(EId);
                     String DstNid = edge.getDstNId();
-                    beta = Betas.get(new EdgePair(NId, DstNid));
-                    if (ThreadLocalRandom.current().nextDouble(0, 1) > beta) {
-                        continue;
-                    }
-                    if (InfectedByH.containsKey(NId) && InfectedNIdH.get(NId).equals(DstNid)) {
-                        continue;
-                    }
-                    Long t1 = TimeH.get(NId);
-                    if (InfectedNIdH.containsKey(DstNid)) {
-                        String parent = InfectedByH.get(DstNid);
-                        if ((InfectedNIdH.get(DstNid) - TimeH.get(parent)) > (InfectedNIdH.get(DstNid) - t1)) {
-                            InfectedByH.put(DstNid, NId);
-                        }
-                    } else {
-                        InfectedNIdH.put(DstNid, TimeH.get(DstNid));
-                        InfectedByH.put(DstNid, NId);
+                    //System.out.println(NId+" "+DstNid);
+                   // System.out.println(Betas.get(new EdgePair(NId, DstNid)));
+                        beta = Betas.get(new EdgePair(NId, DstNid));
 
+                        System.out.println("Beta"+beta);
+                        if (ThreadLocalRandom.current().nextDouble(0, 1) > beta) {
+                            continue;
+                        }
+                        if (InfectedByH.containsKey(NId) && InfectedNIdH.get(NId).equals(DstNid)) {
+                            continue;
+                        }
+                        BigInteger t1 = TimeH.get(NId);
+                        if (InfectedNIdH.containsKey(DstNid)) {
+                            String parent = InfectedByH.get(DstNid);
+                            if ((InfectedNIdH.get(DstNid).subtract(TimeH.get(parent))).compareTo(InfectedNIdH.get(DstNid).subtract(t1)) == 1) {
+                                InfectedByH.put(DstNid, NId);
+                            }
+                        } else {
+                            InfectedNIdH.put(DstNid, TimeH.get(DstNid));
+                            InfectedByH.put(DstNid, NId);
+
+                        }
                     }
-                }
-                InfectedNIdH.put(NId,window);
+                    InfectedNIdH.put(NId, window);
+
 
             }
 
@@ -216,25 +228,25 @@ public class NetInf {
 
     }
 
-    public HashMap<String,Long> sort(
-            HashMap<String,Long> passedMap) {
+    public HashMap<String,BigInteger> sort(
+            HashMap<String,BigInteger> passedMap) {
         List<String> mapKeys = new ArrayList<>(passedMap.keySet());
-        List<Long> mapValues = new ArrayList<>(passedMap.values());
+        List<BigInteger> mapValues = new ArrayList<>(passedMap.values());
         Collections.sort(mapValues);
         Collections.sort(mapKeys);
 
-        HashMap<String, Long> sortedMap =
+        HashMap<String, BigInteger> sortedMap =
                 new HashMap<>();
 
-        Iterator<Long> valueIt = mapValues.iterator();
+        Iterator<BigInteger> valueIt = mapValues.iterator();
         while (valueIt.hasNext()) {
-            Long val = valueIt.next();
+            BigInteger val = valueIt.next();
             Iterator<String> keyIt = mapKeys.iterator();
 
             while (keyIt.hasNext()) {
                 String key = keyIt.next();
-                Long comp1 = passedMap.get(key);
-                Long comp2 = val;
+                BigInteger comp1 = passedMap.get(key);
+                BigInteger comp2 = val;
 
                 if (comp1.equals(comp2)) {
                     keyIt.remove();
@@ -302,7 +314,7 @@ public class NetInf {
                     if(cascadeList.get(cIdList.get(c)).getNode(i)==NId){
                         continue;
                     }
-                    if(cascadeList.get(cIdList.get(c)).getUnixTime(cascadeList.get(cIdList.get(c)).getNode(i)) < cascadeList.get(cIdList.get(c)).getUnixTime(NId)){
+                    if((cascadeList.get(cIdList.get(c)).getUnixTime(cascadeList.get(cIdList.get(c)).getNode(i))).compareTo(cascadeList.get(cIdList.get(c)).getUnixTime(NId))==-1){
                         if(!CascPerEdge.containsKey(new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)))
 
                         {
@@ -456,6 +468,7 @@ public class NetInf {
     }
 
     void saveGraphText() throws IOException {
+        System.out.println("Inside save");
         int size = graph.getEdges();
         String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
 
