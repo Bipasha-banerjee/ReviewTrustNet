@@ -78,17 +78,16 @@ public class PrepareData {
         //System.out.println(list.get(1).get(0));
         //System.out.println(list.get(2).get(0));
 
-        //for(int i=0; i< list.size();i++){
+        for(int i=0; i< list.size();i++){
 
 
-            //writeToFile(i,list.get(i));
+            writeToFile(i,list.get(i));
 
 
-        //}
+        }
 
 
-
-        writeToFile();
+       // writeToFile();
 
 
     }
@@ -98,7 +97,7 @@ public class PrepareData {
     static void fetchIntoList() throws IOException {
         System.out.println("Inside fetchIntoList");
         BufferedReader in
-                = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/data_3.json"));
+                = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/Musical_Instruments_5.json"));
 
         ArrayList<JSONObject> contentsAsJsonObjects = new ArrayList<JSONObject>();
         System.out.println("after content as json");
@@ -204,7 +203,7 @@ public class PrepareData {
 
     static void writeToFile(int k, List<tuples> lst ) throws IOException {
        // System.out.println(lst);
-        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
+        String path = "/Users/bipashabanerjee/IdeaProjects/musicOutput/";
 
         FileWriter fileWriter = new FileWriter(path+"GroundTruth"+k+".csv");
         PrintWriter printWriter = new PrintWriter(fileWriter);
