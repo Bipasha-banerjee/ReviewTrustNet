@@ -1,6 +1,8 @@
 package edu.vt.NetInf;
 
 
+import Jama.Matrix;
+
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,8 +23,12 @@ public class NetInf {
     HashMap<EdgePair,Long> Deltas = new HashMap<>();
     HashMap<String,Long> TimeH = new HashMap<>();
     double[][] CMatrix;
+    double[][] PMatrix;
     double thresholdEigen = 0.5;
     int trusted = 100;
+    double a=0.2;
+    int iterations = 20;
+    Matrix tkFinal;
 
 
     public NetInf() {
@@ -524,7 +530,22 @@ public class NetInf {
 
         }
 
-
+void processEigen(){
+        PMatrix = new double[CMatrix.length][CMatrix[0].length];
+        Matrix pMatrix = new Matrix(PMatrix);
+        Matrix cMatrix = new Matrix(CMatrix);
+        Matrix tk = pMatrix.copy();
+        Matrix tkplus1 = null;
+        Matrix cTrans = cMatrix.transpose();
+        for(int i=0;i<iterations; i++)
+        {
+            tkplus1 = cTrans.times(tk);
+            tkplus1 = tkplus1.times(1-a);
+            tkplus1 =tkplus1.plus(pMatrix.times(a));
+            tk = tkplus1.copy();
+        }
+        tkFinal=tk.copy();
+}
 
 
 
