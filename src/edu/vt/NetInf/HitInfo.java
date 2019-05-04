@@ -4,13 +4,15 @@ import java.math.BigInteger;
 
 public class HitInfo {
     public String NId,Parent;
-    public BigInteger unixTime;
+    public Long unixTime;
 
 
-    public HitInfo(String NId, BigInteger unixTime) {
+    public HitInfo(String NId, Long unixTime) {
+
         this.NId = NId;
-        Parent = null;
+        this.Parent = "null";
         this.unixTime = unixTime;
+        //System.out.println(Parent.equals("null"));
 
     }
 

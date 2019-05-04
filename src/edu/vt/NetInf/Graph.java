@@ -103,7 +103,7 @@ public class Graph {
     }
     //Iterators to add?
 
-    private Integer  MxEId;
+    private Integer  MxEId =0;
 
     public Map<String, Node> NodeH = new LinkedHashMap<>();
     public Map<Integer,Edge> EdgeH = new LinkedHashMap<>();

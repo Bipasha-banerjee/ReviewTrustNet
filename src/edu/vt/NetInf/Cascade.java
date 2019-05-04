@@ -1,6 +1,7 @@
 package edu.vt.NetInf;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.*;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -91,11 +92,11 @@ public class Cascade {
         return Alpha;
     }
 
-    public BigInteger getUnixTime(String NId){
+    public Long getUnixTime(String NId){
         return NIdHitH.get(NId).unixTime;
     }
 
-    public void Add(String Nid, BigInteger unixTime){
+    public void Add(String Nid, Long unixTime){
         NIdHitH.put(Nid,new HitInfo(Nid,unixTime));
     }
 
@@ -139,23 +140,31 @@ public class Cascade {
         NIdHitH = sortedMap;
     }
 
-Double TransProb(String N1, String N2, double alpha, double alphaParam) {
-    if (!IsNode(N1) || !IsNode(N2)) {
-        return Eps;
+    Double TransProb(String N1, String N2, double alpha, double alphaParam) {
+        if (!IsNode(N1) || !IsNode(N2)) {
+            return Eps;
+        }
+        if (getUnixTime(N1) >= getUnixTime(N2)) {
+            return Eps;
+        }
+        if (Model == 0) {
+           // System.out.println("time 1 = " + getUnixTime(N1));
+           // System.out.println("time 2 = " +getUnixTime(N2));
+            double value1 = pow(2.71,(-alpha * ((getUnixTime(N2) - getUnixTime(N1))/604800)));
+           // System.out.println("Time differnece is "+(getUnixTime(N2) - getUnixTime(N1))/604800);
+          //  System.out.println("alpha"+alpha);
+           // System.out.println(-alpha * (getUnixTime(N2) - getUnixTime(N1)));
+            double value = (alpha * exp(-alpha * ((getUnixTime(N2) - getUnixTime(N1))/604800)))*alphaParam;
+           // System.out.println("Value1 :"+value1);
+            return value;//exponential
+        }
+        else if(Model == 1){
+            return ((alpha-1)+pow((getUnixTime(N2) - getUnixTime(N1)),-alpha))*alphaParam; //Power-law
+        }
+        else {
+            return alpha * ((getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)))*alphaParam; // rayleigh
+        }
     }
-    if (getUnixTime(N1).compareTo(getUnixTime(N2)) != -1) {
-        return Eps;
-    }
-    if (Model == 0) {
-        return (alpha * exp(((getUnixTime(N2).subtract(getUnixTime(N1))).doubleValue())*-alpha))*alphaParam; //exponential
-    }
-    else if(Model == 1){
-        return ((alpha-1)+pow((getUnixTime(N2).subtract(getUnixTime(N1))).doubleValue(),-alpha))*alphaParam; //Power-law
-    }
-    else {
-        return alpha * ((getUnixTime(N2).subtract(getUnixTime(N1))).doubleValue() * exp(-0.5 * alpha * pow((getUnixTime(N2).subtract(getUnixTime(N1))).doubleValue(), 2)))*alphaParam; // rayleigh
-    }
-}
 
 //Node iters for graph or not? this is without, check for correction.
 /*double getProb(Graph G){
@@ -187,7 +196,7 @@ Double TransProb(String N1, String N2, double alpha, double alphaParam) {
 void initProb(){
         CurProb = Math.log(Eps) * Len();
         for(String s : NIdHitH.keySet()){
-            NIdHitH.get(s).Parent = null;
+            NIdHitH.get(s).Parent = "null";
         }
 }
 
@@ -201,17 +210,35 @@ double updateProb(String N1, String N2, boolean update, HashMap<NetInf.EdgePair,
 
     double alpha=0.0;
     double alphaParent=0.0;
-    if(Alphas.containsKey(new EdgePair(N1,N2))) {
+    for (Map.Entry<EdgePair, Double> entry : Alphas.entrySet()) {
+        if(N1.equals(entry.getKey().Source) && (N2.equals(entry.getKey().Destination)))
+        {
+            //EdgePair ep1 = new EdgePair(Source,Destination);
+
+            alpha = entry.getValue();
+            break;
+        }
+        //   System.out.println(entry.getKey().Source + ":"+ entry.getKey().Destination+" : "+entry.getValue());
+    }
+
+   /* if(Alphas.containsKey(new EdgePair(N1,N2))) {
 
        alpha = Alphas.get(new NetInf.EdgePair(N1, N2));
 
+    }*/
+
+    for (Map.Entry<EdgePair, Double> entry : Alphas.entrySet()) {
+     //  System.out.println(N2+" "+getParent(N2));
+        if(getParent(N2).equals(entry.getKey().Source) && (N2.equals(entry.getKey().Destination)))
+        {
+            //EdgePair ep1 = new EdgePair(Source,Destination);
+
+            alphaParent = entry.getValue();
+            break;
+        }
     }
 
-    if(Alphas.containsKey(new EdgePair(getParent(N2),N2))) {
 
-        alphaParent = Alphas.get(new NetInf.EdgePair(getParent(N2), N2));
-
-    }
         double P1 = log(TransProb(getParent(N2),N2,alphaParent,alphaParam));
         double P2 = log(TransProb(N1,N2,alpha,alphaParam));
         if(P1<P2){
