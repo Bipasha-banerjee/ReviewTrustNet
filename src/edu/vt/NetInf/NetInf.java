@@ -2,6 +2,7 @@ package edu.vt.NetInf;
 
 
 import Jama.Matrix;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.io.*;
 import java.math.BigInteger;
@@ -56,13 +57,29 @@ public class NetInf {
         TimeH.clear();
     }
 
-    public static class EdgePair{
-        public String Source;
-        public String Destination;
+     public static class EdgePair{
+         public String Source;
+         public String Destination;
 
-        public EdgePair(String source, String destination) {
+         public void setSource(String source) {
+             Source = source;
+         }
+
+         public void setDestination(String destination) {
+             Destination = destination;
+         }
+
+         public EdgePair(String source, String destination) {
             Source = source;
             Destination = destination;
+        }
+
+        public String getSource() {
+            return Source;
+        }
+
+        public String getDestination() {
+            return Destination;
         }
     }
 
@@ -93,7 +110,7 @@ public class NetInf {
         }
     }
 
-    public void AddCasc(Cascade c ){
+    public void AddCasc(Cascade c){
 
         cascadeList.Add(c);
         for(int i=0; i<c.Len(); i++)
@@ -136,12 +153,75 @@ public class NetInf {
             groundTruth.AddEdge(lineSplit[0], lineSplit[1],-1);
             Alphas.put(new EdgePair(lineSplit[0],lineSplit[1]), Double.valueOf(lineSplit[2]));
             double boundedRandomValue = ThreadLocalRandom.current().nextDouble(0, 1);
-            Betas.put(new EdgePair(lineSplit[0],lineSplit[1]), boundedRandomValue);
+
+
+            EdgePair ep  = putInEdgePair(lineSplit[0],lineSplit[1]);
+            if(ep != null){
+                Betas.put(ep, boundedRandomValue);
+            }else{
+                EdgePair ep1 = new EdgePair(lineSplit[0],lineSplit[1]);
+                Betas.put(ep1,boundedRandomValue);
+            }
+
+
+         //   System.out.println(Betas.get(ep));
             Deltas.put(new EdgePair(lineSplit[0],lineSplit[1]),new BigInteger(lineSplit[4]).subtract(new BigInteger(lineSplit[3])));
             System.out.println(groundTruth.getNodes() + "Nodes and " + groundTruth.getEdges() + "Edges added.");
 
 
         }
+    }
+
+    public double findEdgePair(String Source, String Destination)
+    {
+
+        for (Map.Entry<EdgePair, Double> entry : Betas.entrySet()) {
+            if(Source.equals(entry.getKey().Source) && (Destination.equals(entry.getKey().Destination)))
+            {
+                //EdgePair ep1 = new EdgePair(Source,Destination);
+
+                 return entry.getValue();
+            }
+            //   System.out.println(entry.getKey().Source + ":"+ entry.getKey().Destination+" : "+entry.getValue());
+        }
+        return 0.0;
+
+    }
+
+    public CascIdList findCascEdgePair(String Source, String Destination)
+    {
+
+        for (Map.Entry<EdgePair, CascIdList> entry : CascPerEdge.entrySet()) {
+            if(Source.equals(entry.getKey().Source) && (Destination.equals(entry.getKey().Destination)))
+            {
+                //EdgePair ep1 = new EdgePair(Source,Destination);
+
+                return entry.getValue();
+            }
+            //   System.out.println(entry.getKey().Source + ":"+ entry.getKey().Destination+" : "+entry.getValue());
+        }
+        return null;
+
+    }
+
+    public EdgePair putInEdgePair(String Source, String Destination) {
+        for (Map.Entry<EdgePair, Double> entry : Betas.entrySet()) {
+            if (Source.equals(entry.getKey().Source) && (Destination.equals(entry.getKey().Destination))) {
+                return  entry.getKey();
+            }
+
+        }
+        return null;
+    }
+
+    public EdgePair putInEdgePaiCascr(String Source, String Destination) {
+        for (Map.Entry<EdgePair, CascIdList> entry : CascPerEdge.entrySet()) {
+            if (Source.equals(entry.getKey().Source) && (Destination.equals(entry.getKey().Destination))) {
+                return  entry.getKey();
+            }
+
+        }
+        return null;
     }
 
     public Cascade genCascade(Cascade C,HashMap<EdgePair,Integer> EdgesUsed){
@@ -175,18 +255,19 @@ public class NetInf {
                     break;
                 }
                 C.Add(NId,GlobalTime);
-
                 Graph.Node N = groundTruth.getNode(NId);
 
                 for(int e=0; e<N.getOutDeg();e++) {
                     int EId = N.getOutEId(e);
                     Graph.Edge edge = groundTruth.getEdge(EId);
                     String DstNid = edge.getDstNId();
-                    //System.out.println(NId+" "+DstNid);
-                   // System.out.println(Betas.get(new EdgePair(NId, DstNid)));
-                        beta = Betas.get(new EdgePair(NId, DstNid));
+                  //  EdgePair ep1 = new EdgePair(NId, DstNid);
 
-                        System.out.println("Beta"+beta);
+
+
+                        beta = findEdgePair(NId,DstNid);
+
+                      //  System.out.println("Beta"+beta);
                         if (ThreadLocalRandom.current().nextDouble(0, 1) > beta) {
                             continue;
                         }
@@ -286,8 +367,9 @@ public class NetInf {
 
         for(int c=0;c<cascadeList.Size();c++)
         {
-            for(int i=0; i<=cascadeList.get(c).Len();i++)
+            for(int i=0; i<cascadeList.get(c).Len();i++)
             {
+
                 if(!graph.isNode(cascadeList.get(c).getNode(i)))
                 {
                     graph.AddNode(cascadeList.get(c).getNode(i));
@@ -315,15 +397,16 @@ public class NetInf {
                         continue;
                     }
                     if((cascadeList.get(cIdList.get(c)).getUnixTime(cascadeList.get(cIdList.get(c)).getNode(i))).compareTo(cascadeList.get(cIdList.get(c)).getUnixTime(NId))==-1){
-                        if(!CascPerEdge.containsKey(new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)))
-
+                        EdgePair ep = putInEdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId);
+                        if(ep != null)
                         {
                         // graph.AddEdge(cascadeList.get(cIdList.get(c)).getNode(i),NId,-1);
                          GainList.add(new GainPair(Double.MAX_VALUE,new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)));
-                         CascPerEdge.put((new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)), new CascIdList());
+                         CascPerEdge.put(ep, new CascIdList());
                         }
-
-                        CascIdList cascadeList1 = CascPerEdge.get(new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId));
+                       // System.out.println(cascadeList.get(cIdList.get(c)).getNode(i));
+                        CascIdList cascadeList1 =  findCascEdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId);
+                      //  CascIdList cascadeList1 = CascPerEdge.get(new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId));
                         cascadeList1.Add(c);
                         CascPerEdge.put((new EdgePair(cascadeList.get(cIdList.get(c)).getNode(i),NId)), cascadeList1);
                     }
@@ -336,8 +419,8 @@ public class NetInf {
     public double GetAllCascProb( String n1, String n2) {
         double p = 0.0;
         double alpha  = 0.0;
-
-        if (n1.equals(null) && n2.equals(null)) {
+//System.out.println(n1.equals("null"));
+        if (n1.equals("null") && n2.equals("null")) {
             for (int c = 0; c < cascadeList.Size(); c++) {
                 p += cascadeList.get(c).updateProb(n1, n2, false, Alphas, alphaParam); }
             return p;
@@ -406,7 +489,7 @@ public class NetInf {
                         CurProb += BestGain;
 
                         if (BestGain == 0)
-                            return new EdgePair(null, null);
+                            return new EdgePair("null", "null");
                         GainList.remove(BestGainIndex);
 
                         for (int i=ZeroEdges.size()-1; i>=0; i--) {
@@ -428,7 +511,7 @@ public class NetInf {
 
 
             }
-            return new EdgePair(null,null);
+            return new EdgePair("null","null");
         }
 
 
@@ -437,7 +520,7 @@ public class NetInf {
 
     public void GreedyOpt()
     {
-        double CurProb = GetAllCascProb(null, null);
+        double CurProb = GetAllCascProb("null", "null");
         double LastGain =Double.MAX_VALUE;
         int attempts = 0;
         Boolean msort = false;
@@ -447,7 +530,7 @@ public class NetInf {
         {
             double prev = CurProb;
              EdgePair BestE = GetBestEdge(CurProb, LastGain, msort, attempts);
-            if (BestE == new EdgePair(null, null)) // if we cannot add more edges, we stop
+            if (BestE == new EdgePair("null", "null")) // if we cannot add more edges, we stop
                 break;
 
             double value = x.TransProb(BestE.Source,BestE.Destination,alphaParam,Alphas.get(new EdgePair(BestE.Source,BestE.Destination)));

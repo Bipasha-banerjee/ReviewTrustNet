@@ -61,7 +61,7 @@ public class PrepareData {
 
         @Override
         public String toString() {
-            return reviewerID1 + "," +  reviewerID2 + "," + usefulness + "," + UnixTime1 + UnixTime2 + "," + productID;
+            return reviewerID1 + "," +  reviewerID2 + "," + usefulness + "," + UnixTime1 +"," + UnixTime2 + "," + productID;
 
         }
     }

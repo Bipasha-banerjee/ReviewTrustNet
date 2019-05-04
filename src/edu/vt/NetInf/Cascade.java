@@ -75,6 +75,8 @@ public class Cascade {
     }
 
     public String getNode(int index){
+       // System.out.println(index);
+
         Object[] keysSet = NIdHitH.keySet().toArray();
         return keysSet[index].toString();
 
