@@ -136,7 +136,8 @@ public class PrepareData {
            }
 
            else
-               div = 0.01;
+               continue;
+               //div = 0.01;
 
            dataList.add(new dataObject(reviewerID,productID,div,rating,unixTime));
 
@@ -203,7 +204,7 @@ public class PrepareData {
 
     static void writeToFile(int k, List<tuples> lst ) throws IOException {
        // System.out.println(lst);
-        String path = "/Users/bipashabanerjee/IdeaProjects/musicOutput/";
+        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/musicOutputW0/";
 
         FileWriter fileWriter = new FileWriter(path+"GroundTruth"+k+".csv");
         PrintWriter printWriter = new PrintWriter(fileWriter);

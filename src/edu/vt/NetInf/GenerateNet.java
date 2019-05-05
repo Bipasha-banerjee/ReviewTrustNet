@@ -9,8 +9,8 @@ import java.util.HashMap;
 public class GenerateNet {
     public static void main(String[] args) throws IOException {
         NetInf netInf = new NetInf();
-        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/musicOutput/";
-        /*for (int j = 900; j < 901; j++) {
+      /*  String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/musicOutputW0/";
+        for (int j = 675; j < 676; j++) {
             netInf.clear();
             netInf.loadGroundTruth(path+"GroundTruth"+j+".csv", 0, 1);
             HashMap<NetInf.EdgePair, Integer> EdgesUsed = new HashMap<>();
@@ -36,6 +36,7 @@ public class GenerateNet {
         netInf.AddtoOutputGraph();
         netInf.setupCmatrix();
         netInf.processEigen();
+        netInf.predictUsefulness();
     }
 
 

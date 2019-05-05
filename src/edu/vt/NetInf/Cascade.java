@@ -28,7 +28,7 @@ public class Cascade {
         CurProb = 0.0;
         Alpha = 1.0;
         Eps = 1e-64;
-        Model = 0;
+        Model = 1;
     }
 
     public Cascade(Double alpha) {
@@ -140,7 +140,7 @@ public class Cascade {
         NIdHitH = sortedMap;
     }
 
-    Double TransProb(String N1, String N2, double alpha, double alphaParam) {
+    Double TransProb(String N1, String N2, double alphaParam) {
         if (!IsNode(N1) || !IsNode(N2)) {
             return Eps;
         }
@@ -150,19 +150,20 @@ public class Cascade {
         if (Model == 0) {
            // System.out.println("time 1 = " + getUnixTime(N1));
            // System.out.println("time 2 = " +getUnixTime(N2));
-            double value1 = pow(2.71,(-alpha * ((getUnixTime(N2) - getUnixTime(N1))/604800)));
+            double value1 = pow(2.71,(-1 * ((getUnixTime(N2) - getUnixTime(N1))/604800)));
            // System.out.println("Time differnece is "+(getUnixTime(N2) - getUnixTime(N1))/604800);
           //  System.out.println("alpha"+alpha);
            // System.out.println(-alpha * (getUnixTime(N2) - getUnixTime(N1)));
-            double value = (alpha * exp(-alpha * ((getUnixTime(N2) - getUnixTime(N1))/604800)))*alphaParam;
+            double value = ( exp(-1 * ((getUnixTime(N2) - getUnixTime(N1))/604800)))*alphaParam;
            // System.out.println("Value1 :"+value1);
             return value;//exponential
         }
         else if(Model == 1){
-            return ((alpha-1)+pow((getUnixTime(N2) - getUnixTime(N1)),-alpha))*alphaParam; //Power-law
+            double vp= (pow(((getUnixTime(N2) - getUnixTime(N1))/86400),-1))*alphaParam; //Power-law
+            return vp;
         }
         else {
-            return alpha * ((getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * alpha * pow(getUnixTime(N2) - getUnixTime(N1), 2)))*alphaParam; // rayleigh
+            return ((getUnixTime(N2) - getUnixTime(N1)) * exp(-0.5 * pow(getUnixTime(N2) - getUnixTime(N1), 2)))*alphaParam; // rayleigh
         }
     }
 
@@ -239,8 +240,8 @@ double updateProb(String N1, String N2, boolean update, HashMap<NetInf.EdgePair,
     }
 
 
-        double P1 = log(TransProb(getParent(N2),N2,alphaParent,alphaParam));
-        double P2 = log(TransProb(N1,N2,alpha,alphaParam));
+        double P1 = log(TransProb(getParent(N2),N2,alphaParent));
+        double P2 = log(TransProb(N1,N2,alpha));
         if(P1<P2){
             if(update){
                 CurProb = CurProb - P1 + P2;

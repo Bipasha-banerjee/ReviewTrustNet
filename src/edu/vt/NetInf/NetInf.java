@@ -25,7 +25,8 @@ public class NetInf {
     HashMap<EdgePair,Double> Betas = new HashMap<>();
     HashMap<EdgePair,Long> Deltas = new HashMap<>();
     HashMap<String,Long> TimeH = new HashMap<>();
-    double[][] CMatrix = new double[1325][1325];
+    //double[][] CMatrix = new double[1325][1325];
+    double[][] CMatrix = new double[609][609];
     double[][] PMatrix;
     double thresholdEigen = 0.5;
     int trusted = 100;
@@ -291,6 +292,7 @@ public class NetInf {
             return null;
         }
         while(C.Len() < 2){
+
             C.Clr();
             InfectedNIdH.clear();
             InfectedByH.clear();
@@ -346,8 +348,13 @@ public class NetInf {
 
 
             }
+            if(groundTruth.getNodes()<=2){
+                break;
+            }
+
 
         }
+
         C.Sort();
         Iterator EIt = InfectedByH.entrySet().iterator();
         while(EIt.hasNext()){
@@ -664,7 +671,7 @@ public class NetInf {
     }
 
     void AddtoOutputGraph() throws FileNotFoundException {
-        File inputFile = new File("/Users/bipashabanerjee/Documents/CS/sem2/DBMS/project/Eigen/outputWithEigen.txt");
+        File inputFile = new File("/Users/bipashabanerjee/Documents/CS/sem2/DBMS/project/power/powerOutput.txt");
         Scanner scanner = new Scanner(inputFile);
         while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
@@ -699,7 +706,18 @@ public class NetInf {
         }
 
     }
+void predictUsefulness(){
+       String query = "A3237FOR4LVBZO";
+       HashMap<String,Integer> NodeIdH = outputGraph.initNodeIdH();
+       if(NodeIdH.containsKey(query)){
+           int i = NodeIdH.get(query);
+           double[][] valsTransposed = tkFinal.getArray();
+           double ans = valsTransposed[i][0];
+           System.out.println(ans);
+       }
 
+
+}
 
     void setupCmatrix(){
 
@@ -712,6 +730,7 @@ public class NetInf {
             ArrayList<Double> values = outputGraph.getEdgeValue(ep.Source,ep.Destination);
             double sij = 0.0;
             for(int i=0; i < values.size();i++){
+                //sij+=values.get(i);
                 if(values.get(i) > thresholdEigen){
                     sij += 1;
                 }
@@ -749,7 +768,7 @@ public class NetInf {
 
         }
 
-void processEigen(){
+void processEigen() throws IOException {
         PMatrix = new double[CMatrix.length][CMatrix[0].length];
         for(int i=0;i< PMatrix.length;i++)
         {
@@ -769,19 +788,37 @@ void processEigen(){
             tkplus1 = cTrans.times(tk);
             tkplus1 = tkplus1.times(1-a);
             tkplus1 =tkplus1.plus(pMatrix.times(a));
+            //System.out.println(tkplus1.minus(tk).norm2());
             tk = tkplus1.copy();
+          //  System.out.println(tkplus1.minus(tk).norm2());
         }
+
         tkFinal=tk.copy();
         double[][] valsTransposed = tkFinal.getArray();
 
     // now loop through the rows of valsTransposed to print
-        for(int i = 0; i < valsTransposed.length; i++) {
-        for(int j = 0; j < valsTransposed[i].length; j++) {
-            System.out.println( " " + valsTransposed[i][j] );
+
+
+            File output = new File("/Users/bipashabanerjee/Documents/CS/sem2/DBMS/project/power/powerEigenOutput.txt");
+            FileWriter fileWriter = new FileWriter(output);
+            PrintWriter printWriter = new PrintWriter(fileWriter);
+            for(int i = 0; i < valsTransposed.length; i++) {
+                for(int j = 0; j < valsTransposed[i].length; j++) {
+
+                    printWriter.print(valsTransposed[i][j]);
+                    printWriter.print(" ");
+
+             //System.out.println(valsTransposed[i][j] );
         }
+                printWriter.println();
+
+
+
+            }
+            printWriter.close();
     }
        // System.out.println(tkFinal);
-}
+
 
 
 
