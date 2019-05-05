@@ -624,7 +624,7 @@ public class NetInf {
 
             //double value = x.TransProb(BestE.Source,BestE.Destination,alpha,alphaParam);
 
-            graph.AddEdge(BestE.Source,BestE.Destination,-1,LastGain);
+            graph.AddEdge(BestE.Source,BestE.Destination,-1,alpha);
            /* double Bound = 0;
             if (BoundOn)
                 Bound = GetBound(BestE, prev);
@@ -655,7 +655,22 @@ public class NetInf {
         }
     }
 
-    void AddtoOutputGraph(){
+    void AddtoOutputGraph() throws FileNotFoundException {
+        File inputFile = new File("/Users/bipashabanerjee/Documents/CS/sem2/DBMS/project/Eigen/outputWithEigen.txt");
+        Scanner scanner = new Scanner(inputFile);
+        while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
+        String[] lineSplit = line.split(",");
+            if(!outputGraph.isNode(lineSplit[0])) {
+                outputGraph.AddNode(lineSplit[0]);
+            }
+            outputGraph.AddEdge(lineSplit[1],lineSplit[0],-1, Double.parseDouble(lineSplit[2]));
+            if(!outputGraph.containsEdge(lineSplit[1],lineSplit[0])){
+                outputGraph.create(lineSplit[1],lineSplit[0]);
+            }
+            outputGraph.AddEdgeValue(lineSplit[1],lineSplit[0], Double.parseDouble(lineSplit[2]));
+
+        }
         Iterator it = graph.NodeH.keySet().iterator();
         while(it.hasNext()){
             String NId = (String) it.next();
@@ -669,11 +684,7 @@ public class NetInf {
             String dstId = edge.getDstNId();
 
             double value = edge.getValue();
-            outputGraph.AddEdge(srcId,dstId,-1,value);
-            if(!outputGraph.containsEdge(srcId,dstId)){
-                outputGraph.create(srcId,dstId);
-            }
-            outputGraph.AddEdgeValue(srcId,dstId,value);
+
         }
 
     }
