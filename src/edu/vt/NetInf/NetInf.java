@@ -25,17 +25,25 @@ public class NetInf {
     HashMap<EdgePair,Double> Betas = new HashMap<>();
     HashMap<EdgePair,Long> Deltas = new HashMap<>();
     HashMap<String,Long> TimeH = new HashMap<>();
-    double[][] CMatrix;
+    double[][] CMatrix = new double[1325][1325];
     double[][] PMatrix;
     double thresholdEigen = 0.5;
     int trusted = 100;
     double a=0.2;
-    int iterations = 20;
+    int iterations = 5;
     Matrix tkFinal;
     Boolean msort = false;
     double LastGain =Double.MAX_VALUE;
     int attempts = 0;
     double CurProb = GetAllCascProb("null", "null");
+
+    public double[][] getCMatrix() {
+        return CMatrix;
+    }
+
+    public void setCMatrix(double[][] CMatrix) {
+        this.CMatrix = CMatrix;
+    }
 
     public NetInf() {
         BoundOn = false;
@@ -664,6 +672,9 @@ public class NetInf {
             if(!outputGraph.isNode(lineSplit[0])) {
                 outputGraph.AddNode(lineSplit[0]);
             }
+            if(!outputGraph.isNode(lineSplit[1])) {
+                outputGraph.AddNode(lineSplit[1]);
+            }
             outputGraph.AddEdge(lineSplit[1],lineSplit[0],-1, Double.parseDouble(lineSplit[2]));
             if(!outputGraph.containsEdge(lineSplit[1],lineSplit[0])){
                 outputGraph.create(lineSplit[1],lineSplit[0]);
@@ -689,9 +700,11 @@ public class NetInf {
 
     }
 
+
     void setupCmatrix(){
+
         HashMap<String,Integer> NodeIdH = outputGraph.initNodeIdH();
-        CMatrix = new double[NodeIdH.size()][NodeIdH.size()];
+
         Iterator it = outputGraph.valueH.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry pair = (Map.Entry) it.next();
@@ -706,10 +719,16 @@ public class NetInf {
                     sij -= 1;
                 }
             }
+           // System.out.println(NodeIdH.get(ep.Source));
+           // System.out.println(NodeIdH.get(ep.Destination));
 
             CMatrix[NodeIdH.get(ep.Source)][NodeIdH.get(ep.Destination)] = sij;
 
+             //System.out.println(CMatrix[1][0] );
+
         }
+
+
 
         for(int i =0; i < CMatrix.length;i++){
             double total = 0;
@@ -722,8 +741,9 @@ public class NetInf {
                    CMatrix[i][j] = CMatrix[i][j]/total;
                 }
                else{
-                   CMatrix[i][j] = 1/trusted;
+                   CMatrix[i][j] = 1/Double.valueOf(trusted);
                }
+              // System.out.println(CMatrix[i][j]);
             }
         }
 
@@ -731,6 +751,14 @@ public class NetInf {
 
 void processEigen(){
         PMatrix = new double[CMatrix.length][CMatrix[0].length];
+        for(int i=0;i< PMatrix.length;i++)
+        {
+            for(int j=0; j< PMatrix[i].length; j++)
+            {
+                PMatrix[i][j] = 1/Double.valueOf(trusted);
+            }
+
+        }
         Matrix pMatrix = new Matrix(PMatrix);
         Matrix cMatrix = new Matrix(CMatrix);
         Matrix tk = pMatrix.copy();
@@ -744,6 +772,15 @@ void processEigen(){
             tk = tkplus1.copy();
         }
         tkFinal=tk.copy();
+        double[][] valsTransposed = tkFinal.getArray();
+
+    // now loop through the rows of valsTransposed to print
+        for(int i = 0; i < valsTransposed.length; i++) {
+        for(int j = 0; j < valsTransposed[i].length; j++) {
+            System.out.println( " " + valsTransposed[i][j] );
+        }
+    }
+       // System.out.println(tkFinal);
 }
 
 

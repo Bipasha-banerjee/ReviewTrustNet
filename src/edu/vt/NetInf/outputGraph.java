@@ -320,7 +320,12 @@ public class outputGraph {
     }
 
     boolean containsEdge(String src,String dst){
-        return  valueH.containsKey(new EdgePair(src,dst));
+        EdgePair ep =  findValueH(src,dst);
+        if(ep==null)
+        {
+            return false;
+        }
+        return true;
     }
 
     void create(String src, String dst){
@@ -351,7 +356,17 @@ public class outputGraph {
     }
 
     ArrayList<Double> getEdgeValue(String src, String dst){
-        return valueH.get(new EdgePair(src,dst)).get();
+
+        for (Map.Entry<EdgePair, valueList> entry : valueH.entrySet()) {
+            if(src.equals(entry.getKey().Source) && (dst.equals(entry.getKey().Destination)))
+            {
+                //EdgePair ep1 = new EdgePair(Source,Destination);
+
+                return entry.getValue().get();
+            }
+            //   System.out.println(entry.getKey().Source + ":"+ entry.getKey().Destination+" : "+entry.getValue());
+        }
+        return null;
     }
 
 
