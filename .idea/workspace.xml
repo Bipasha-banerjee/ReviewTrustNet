@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="89ce03c5-0352-4d0d-a7bb-799a9794709d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/ReviewTrustNet.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ReviewTrustNet.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/GenerateNet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/GenerateNet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/vt/NetInf/NetInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/vt/NetInf/NetInf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/vt/NetInf/PrepareData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/vt/NetInf/PrepareData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/edu/vt/NetInf/outputGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/vt/NetInf/outputGraph.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -152,8 +146,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
+            <state relative-caret-position="180">
+              <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -376,7 +370,7 @@
       <workItem from="1556057369581" duration="8130000" />
       <workItem from="1556073098732" duration="4157000" />
       <workItem from="1556116652288" duration="850000" />
-      <workItem from="1557015907186" duration="20953000" />
+      <workItem from="1557015907186" duration="22239000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1555607059573</created>
@@ -431,7 +425,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83258000" />
+    <option name="totallyTimeSpent" value="84544000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -729,8 +723,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
+        <state relative-caret-position="180">
+          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
