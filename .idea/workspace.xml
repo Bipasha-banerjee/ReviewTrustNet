@@ -4,24 +4,11 @@
     <list default="true" id="89ce03c5-0352-4d0d-a7bb-799a9794709d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/ReviewTrustNet.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ReviewTrustNet.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/Cascade.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/EdgeInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/Graph$Edge.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/Graph$Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/Graph.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/HitInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/NetInf$CascadeList.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/NetInf$EdgePair.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/NetInf$GainPair.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/NetInf.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/NodeInfo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/PrepareData$comparetuple.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/PrepareData$dataObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/PrepareData$tuples.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/PrepareData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/compareNId.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/GenerateNet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ReviewTrustNet/edu/vt/NetInf/GenerateNet.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/edu/vt/NetInf/NetInf.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/vt/NetInf/NetInf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/vt/NetInf/PrepareData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/vt/NetInf/PrepareData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/edu/vt/NetInf/outputGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/edu/vt/NetInf/outputGraph.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -38,45 +25,63 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/NetInf.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="300" column="51" lean-forward="true" selection-start-line="300" selection-start-column="51" selection-end-line="300" selection-end-column="51" />
+            <state relative-caret-position="150">
+              <caret line="194" selection-start-line="194" selection-end-line="194" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2522#2523#0" expanded="true" />
+                <element signature="e#2564#2565#0" expanded="true" />
+                <element signature="e#2600#2601#0" expanded="true" />
+                <element signature="e#2649#2650#0" expanded="true" />
+                <element signature="e#2693#2694#0" expanded="true" />
+                <element signature="e#2742#2743#0" expanded="true" />
+                <element signature="e#12432#12457#0" expanded="true" />
+                <element signature="e#12882#12896#0" expanded="true" />
+                <element signature="e#12449#12450#0" expanded="true" />
+                <element signature="e#12486#12487#0" expanded="true" />
+                <element signature="e#12523#12524#0" expanded="true" />
+                <element signature="e#12571#12572#0" expanded="true" />
+                <element signature="e#12611#12612#0" expanded="true" />
+                <element signature="e#12659#12660#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/musicOutput/GroundTruth0.csv">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/musicOutput/GroundTruth1.csv">
-          <provider selected="true" editor-type-id="text-editor" />
+        <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/PrepareData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="72">
+              <caret line="152" column="16" selection-start-line="152" selection-start-column="16" selection-end-line="152" selection-end-column="16" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/Graph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="181" selection-start-line="181" selection-end-line="181" />
+            <state relative-caret-position="44">
+              <caret line="88" selection-start-line="88" selection-end-line="88" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#766#767#0" expanded="true" />
                 <element signature="e#810#811#0" expanded="true" />
                 <element signature="e#938#939#0" expanded="true" />
                 <element signature="e#990#991#0" expanded="true" />
-                <element signature="e#1844#1845#0" expanded="true" />
                 <element signature="e#1880#1881#0" expanded="true" />
+                <element signature="e#1914#1915#0" expanded="true" />
+                <element signature="e#1947#1948#0" expanded="true" />
+                <element signature="e#1984#1985#0" expanded="true" />
+                <element signature="e#2021#2022#0" expanded="true" />
                 <element signature="e#2058#2059#0" expanded="true" />
                 <element signature="e#2095#2096#0" expanded="true" />
-                <element signature="e#2405#2406#0" expanded="true" />
-                <element signature="e#2440#2441#0" expanded="true" />
+                <element signature="e#2470#2471#0" expanded="true" />
+                <element signature="e#2507#2508#0" expanded="true" />
+                <element signature="e#4080#4081#0" expanded="true" />
+                <element signature="e#4117#4118#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -85,7 +90,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/NodeInfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
+            <state relative-caret-position="195">
               <caret line="13" selection-start-line="13" selection-end-line="13" />
             </state>
           </provider>
@@ -94,12 +99,18 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/Cascade.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
+            <state relative-caret-position="244">
+              <caret line="31" selection-start-line="31" selection-end-line="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1566#1567#0" expanded="true" />
                 <element signature="e#1603#1604#0" expanded="true" />
+                <element signature="e#1974#1975#0" expanded="true" />
+                <element signature="e#2022#2023#0" expanded="true" />
+                <element signature="e#2071#2072#0" expanded="true" />
+                <element signature="e#2129#2130#0" expanded="true" />
+                <element signature="e#2239#2240#0" expanded="true" />
+                <element signature="e#2286#2287#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -108,8 +119,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/HitInfo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            <state relative-caret-position="240">
+              <caret line="16" selection-start-line="16" selection-end-line="16" />
             </state>
           </provider>
         </entry>
@@ -117,8 +128,32 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/outputGraph.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+            <state relative-caret-position="4740">
+              <caret line="348" selection-start-line="348" selection-end-line="348" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2441#2442#0" expanded="true" />
+                <element signature="e#2494#2495#0" expanded="true" />
+                <element signature="e#3128#3129#0" expanded="true" />
+                <element signature="e#3165#3166#0" expanded="true" />
+                <element signature="e#3198#3199#0" expanded="true" />
+                <element signature="e#3243#3244#0" expanded="true" />
+                <element signature="e#4740#4741#0" expanded="true" />
+                <element signature="e#4782#4783#0" expanded="true" />
+                <element signature="e#7819#7820#0" expanded="true" />
+                <element signature="e#7884#7885#0" expanded="true" />
+                <element signature="e#7926#7927#0" expanded="true" />
+                <element signature="e#7991#7992#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -127,12 +162,12 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java">
+        <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/src.zip!/java/util/HashMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="21" selection-start-line="21" selection-end-line="21" />
+            <state relative-caret-position="201">
+              <caret line="476" selection-start-line="476" selection-end-line="476" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#19327#19328#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -141,7 +176,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/countFiles.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
+            <state relative-caret-position="30">
               <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
             </state>
           </provider>
@@ -158,20 +193,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>System.out</find>
-      <find>system.out.print</find>
-      <find>betas</find>
-      <find>Betas</find>
-      <find>edge</find>
-      <find>ep</find>
-      <find>find</find>
-      <find>genc</find>
       <find>beta</find>
       <find>NIdHitH.</find>
       <find>C.Add</find>
       <find>cascadeList.Add</find>
       <find>AddCasc</find>
-      <find>system</find>
       <find>cascPerEdge</find>
       <find>sys</find>
       <find>new</find>
@@ -188,6 +214,15 @@
       <find>Best</find>
       <find>trans</find>
       <find>lastGa</find>
+      <find>EdgesUsed</find>
+      <find>init</find>
+      <find>Inside save</find>
+      <find>valueH</find>
+      <find>save</find>
+      <find>alphas</find>
+      <find>true</find>
+      <find>loa</find>
+      <find>system</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -202,20 +237,21 @@
         <option value="$PROJECT_DIR$/src/edu/vt/NetInf/EdgeInfo.java" />
         <option value="$PROJECT_DIR$/.idea/misc.xml" />
         <option value="$PROJECT_DIR$/src/edu/vt/NetInf/countFiles.java" />
-        <option value="$PROJECT_DIR$/src/edu/vt/NetInf/PrepareData.java" />
         <option value="$PROJECT_DIR$/src/edu/vt/NetInf/Graph.java" />
-        <option value="$PROJECT_DIR$/src/edu/vt/NetInf/outputGraph.java" />
         <option value="$PROJECT_DIR$/src/edu/vt/NetInf/HitInfo.java" />
         <option value="$PROJECT_DIR$/src/edu/vt/NetInf/Cascade.java" />
-        <option value="$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java" />
+        <option value="$PROJECT_DIR$/src/edu/vt/NetInf/outputGraph.java" />
         <option value="$PROJECT_DIR$/src/edu/vt/NetInf/NetInf.java" />
+        <option value="$PROJECT_DIR$/src/edu/vt/NetInf/PrepareData.java" />
+        <option value="$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="y" value="22" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="28" />
+    <option name="y" value="23" />
     <option name="width" value="1440" />
-    <option name="height" value="878" />
+    <option name="height" value="877" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -223,6 +259,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -239,21 +276,6 @@
             <path>
               <item name="ReviewTrustNet" type="b2602c69:ProjectViewProjectNode" />
               <item name="ReviewTrustNet" type="462c0819:PsiDirectoryNode" />
-              <item name="dataSet" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ReviewTrustNet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ReviewTrustNet" type="462c0819:PsiDirectoryNode" />
-              <item name="musicOutput" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ReviewTrustNet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ReviewTrustNet" type="462c0819:PsiDirectoryNode" />
-              <item name="outputFiles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ReviewTrustNet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ReviewTrustNet" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -261,19 +283,11 @@
               <item name="ReviewTrustNet" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="NetInf" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ReviewTrustNet" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ReviewTrustNet" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="NetInf" type="462c0819:PsiDirectoryNode" />
-              <item name="Cascade.java" type="529ef68f:ClassesTreeStructureProvider$PsiClassOwnerTreeNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -362,6 +376,7 @@
       <workItem from="1556057369581" duration="8130000" />
       <workItem from="1556073098732" duration="4157000" />
       <workItem from="1556116652288" duration="850000" />
+      <workItem from="1557015907186" duration="20953000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <created>1555607059573</created>
@@ -416,7 +431,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62381000" />
+    <option name="totallyTimeSpent" value="83258000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -428,10 +443,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="28" y="23" width="1440" height="877" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12818792" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09298999" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -441,15 +456,15 @@
       <window_info id="Favorites" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34560907" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.31586403" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30063695" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3133758" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.2700637" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.50067115" side_tool="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.32738853" />
-      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49932885" weight="0.32719547" />
+      <window_info anchor="bottom" id="Messages" order="10" sideWeight="0.49932885" weight="0.32611465" />
       <window_info anchor="bottom" id="Database Changes" order="11" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -514,23 +529,13 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
+        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/edu/vt/NetInf/NetInf.java</url>
-          <line>590</line>
-          <properties />
-          <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/edu/vt/NetInf/NetInf.java</url>
-          <line>574</line>
-          <properties />
-          <option name="timeStamp" value="31" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java</url>
-          <line>20</line>
-          <properties />
-          <option name="timeStamp" value="32" />
+          <line>139</line>
+          <properties class="edu.vt.NetInf.NetInf" method="loadGroundTruth">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -572,19 +577,8 @@
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/src.zip!/java/lang/NumberFormatException.java" />
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11595">
-          <caret line="793" column="10" selection-start-line="793" selection-start-column="10" selection-end-line="793" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/src.zip!/java/util/HashMap.java" />
-    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/PrepareData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
-          <folding>
-            <element signature="e#2862#2874#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="705">
+          <caret line="47" column="24" selection-end-line="768" selection-end-column="10" />
         </state>
       </provider>
     </entry>
@@ -595,32 +589,8 @@
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/src.zip!/java/util/ArrayList.java" />
     <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/NodeInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
+        <state relative-caret-position="195">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/HitInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/outputGraph.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/countFiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
         </state>
       </provider>
     </entry>
@@ -630,52 +600,137 @@
     <entry file="file://$PROJECT_DIR$/musicOutput/GroundTruth0.csv">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/countFiles.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="21" selection-start-line="21" selection-end-line="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="30">
+          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/Cascade.java">
+    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/HitInfo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="71" selection-start-line="71" selection-end-line="71" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1566#1567#0" expanded="true" />
-            <element signature="e#1603#1604#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/PrepareData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="152" column="16" selection-start-line="152" selection-start-column="16" selection-end-line="152" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/Graph.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="181" selection-start-line="181" selection-end-line="181" />
+        <state relative-caret-position="44">
+          <caret line="88" selection-start-line="88" selection-end-line="88" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#766#767#0" expanded="true" />
             <element signature="e#810#811#0" expanded="true" />
             <element signature="e#938#939#0" expanded="true" />
             <element signature="e#990#991#0" expanded="true" />
-            <element signature="e#1844#1845#0" expanded="true" />
             <element signature="e#1880#1881#0" expanded="true" />
+            <element signature="e#1914#1915#0" expanded="true" />
+            <element signature="e#1947#1948#0" expanded="true" />
+            <element signature="e#1984#1985#0" expanded="true" />
+            <element signature="e#2021#2022#0" expanded="true" />
             <element signature="e#2058#2059#0" expanded="true" />
             <element signature="e#2095#2096#0" expanded="true" />
-            <element signature="e#2405#2406#0" expanded="true" />
-            <element signature="e#2440#2441#0" expanded="true" />
+            <element signature="e#2470#2471#0" expanded="true" />
+            <element signature="e#2507#2508#0" expanded="true" />
+            <element signature="e#4080#4081#0" expanded="true" />
+            <element signature="e#4117#4118#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/src.zip!/java/util/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="211" column="6" selection-start-line="211" selection-start-column="6" selection-end-line="211" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/Cascade.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="31" selection-start-line="31" selection-end-line="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1566#1567#0" expanded="true" />
+            <element signature="e#1603#1604#0" expanded="true" />
+            <element signature="e#1974#1975#0" expanded="true" />
+            <element signature="e#2022#2023#0" expanded="true" />
+            <element signature="e#2071#2072#0" expanded="true" />
+            <element signature="e#2129#2130#0" expanded="true" />
+            <element signature="e#2239#2240#0" expanded="true" />
+            <element signature="e#2286#2287#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/outputGraph.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4740">
+          <caret line="348" selection-start-line="348" selection-end-line="348" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2441#2442#0" expanded="true" />
+            <element signature="e#2494#2495#0" expanded="true" />
+            <element signature="e#3128#3129#0" expanded="true" />
+            <element signature="e#3165#3166#0" expanded="true" />
+            <element signature="e#3198#3199#0" expanded="true" />
+            <element signature="e#3243#3244#0" expanded="true" />
+            <element signature="e#4740#4741#0" expanded="true" />
+            <element signature="e#4782#4783#0" expanded="true" />
+            <element signature="e#7819#7820#0" expanded="true" />
+            <element signature="e#7884#7885#0" expanded="true" />
+            <element signature="e#7926#7927#0" expanded="true" />
+            <element signature="e#7991#7992#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/src.zip!/java/util/HashMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="476" selection-start-line="476" selection-end-line="476" />
+          <folding>
+            <element signature="e#19327#19328#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/NetInf.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="300" column="51" lean-forward="true" selection-start-line="300" selection-start-column="51" selection-end-line="300" selection-end-column="51" />
+        <state relative-caret-position="150">
+          <caret line="194" selection-start-line="194" selection-end-line="194" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2522#2523#0" expanded="true" />
+            <element signature="e#2564#2565#0" expanded="true" />
+            <element signature="e#2600#2601#0" expanded="true" />
+            <element signature="e#2649#2650#0" expanded="true" />
+            <element signature="e#2693#2694#0" expanded="true" />
+            <element signature="e#2742#2743#0" expanded="true" />
+            <element signature="e#12432#12457#0" expanded="true" />
+            <element signature="e#12882#12896#0" expanded="true" />
+            <element signature="e#12449#12450#0" expanded="true" />
+            <element signature="e#12486#12487#0" expanded="true" />
+            <element signature="e#12523#12524#0" expanded="true" />
+            <element signature="e#12571#12572#0" expanded="true" />
+            <element signature="e#12611#12612#0" expanded="true" />
+            <element signature="e#12659#12660#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/edu/vt/NetInf/GenerateNet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="52" lean-forward="true" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

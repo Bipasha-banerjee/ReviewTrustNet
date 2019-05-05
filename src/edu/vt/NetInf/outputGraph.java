@@ -124,21 +124,13 @@ public class outputGraph {
     }
     //Iterators to add?
 
-    private Integer  MxEId;
+    private Integer  MxEId=0;
 
     public Map<String, Node> NodeH = new LinkedHashMap<>();
     public ArrayList<Edge> EdgeH = new ArrayList<>();
     public Map<EdgePair,valueList> valueH = new LinkedHashMap<>();
 
-    //TSIn and TSOut??
 
-    //TCRef??
-
-    //PNGraph will work as an instance?
-
-    //Flag?
-
-    //NODES
 
     int getNodes(){
         return NodeH.size();
@@ -334,11 +326,28 @@ public class outputGraph {
     void create(String src, String dst){
         valueH.put(new EdgePair(src,dst),new valueList());
     }
+    public EdgePair findValueH(String Source, String Destination)
+    {
+
+        for (Map.Entry<EdgePair, valueList> entry : valueH.entrySet()) {
+            if(Source.equals(entry.getKey().Source) && (Destination.equals(entry.getKey().Destination)))
+            {
+                //EdgePair ep1 = new EdgePair(Source,Destination);
+
+                return entry.getKey();
+            }
+            //   System.out.println(entry.getKey().Source + ":"+ entry.getKey().Destination+" : "+entry.getValue());
+        }
+        return null;
+
+    }
 
     void AddEdgeValue(String src, String dst,double value){
-        valueList vl = valueH.get(new EdgePair(src,dst));
+
+        EdgePair ep = findValueH(src,dst);
+        valueList vl = valueH.get(ep);
         vl.Add(value);
-        valueH.put(new EdgePair(src,dst),vl);
+        valueH.put(ep,vl);
     }
 
     ArrayList<Double> getEdgeValue(String src, String dst){

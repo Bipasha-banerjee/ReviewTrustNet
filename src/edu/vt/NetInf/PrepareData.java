@@ -95,12 +95,12 @@ public class PrepareData {
 
 
     static void fetchIntoList() throws IOException {
-        System.out.println("Inside fetchIntoList");
+    //    System.out.println("Inside fetchIntoList");
         BufferedReader in
                 = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/Musical_Instruments_5.json"));
 
         ArrayList<JSONObject> contentsAsJsonObjects = new ArrayList<JSONObject>();
-        System.out.println("after content as json");
+     //   System.out.println("after content as json");
         while(true)
         {
 
