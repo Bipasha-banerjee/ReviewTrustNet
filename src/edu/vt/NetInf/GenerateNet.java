@@ -9,13 +9,13 @@ import java.util.HashMap;
 public class GenerateNet {
     public static void main(String[] args) throws IOException {
         NetInf netInf = new NetInf();
-        String path = "/Users/bipashabanerjee/IdeaProjects/musicOutput/";
+        String path = "C:\\Users\\smrid\\IdeaProjects\\ReviewTrustNet\\musicOutput\\";
         for (int j = 0; j < 900; j++) {
             netInf.clear();
             netInf.loadGroundTruth(path+"GroundTruth"+j+".csv", 0, 1);
             HashMap<NetInf.EdgePair, Integer> EdgesUsed = new HashMap<>();
             int last = 0;
-            int NCascades = 100;
+            int NCascades = 10;
 
             for (int i = 0; (i < NCascades) || ((double) EdgesUsed.size() < -(double) NCascades / 100.0 * (double) netInf.groundTruth.getEdges()); i++) {
                 Cascade C = new Cascade();

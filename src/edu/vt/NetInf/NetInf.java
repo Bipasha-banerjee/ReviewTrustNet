@@ -285,7 +285,7 @@ public class NetInf {
             StartNId = groundTruth.GetRndNId();
             GlobalTime = TimeH.get(StartNId);
             InfectedNIdH.put(StartNId,TimeH.get(StartNId));
-            Long window = GlobalTime + 500000000;
+            Long window = GlobalTime + 50000000;
 
             while(true){
 
@@ -311,7 +311,7 @@ public class NetInf {
                         beta = findEdgePair(NId,DstNid);
 
                       //  System.out.println("Beta"+beta);
-                        if (ThreadLocalRandom.current().nextDouble(0, 1) > beta) {
+                        if (beta<0.5) {
                             continue;
                         }
                         if (InfectedByH.containsKey(NId) && InfectedNIdH.get(NId).equals(DstNid)) {
@@ -372,7 +372,7 @@ public class NetInf {
                 Long comp1 = passedMap.get(key);
                 Long comp2 = val;
 
-                if (comp1.equals(comp2)) {
+                if (comp2.equals(comp1)) {
                     keyIt.remove();
                     sortedMap.put(key, val);
                     break;
@@ -578,9 +578,9 @@ public class NetInf {
 
             double alpha = findAlpha(BestE.Source,BestE.Destination);
 
-            double value = x.TransProb(BestE.Source,BestE.Destination,alpha,alphaParam);
+            //double value = x.TransProb(BestE.Source,BestE.Destination,alpha,alphaParam);
 
-            graph.AddEdge(BestE.Source,BestE.Destination,-1,value);
+            graph.AddEdge(BestE.Source,BestE.Destination,-1,LastGain);
            /* double Bound = 0;
             if (BoundOn)
                 Bound = GetBound(BestE, prev);
