@@ -712,13 +712,13 @@ void predictUsefulness() throws IOException {
 
     HashMap<String,Integer> NodeIdH = outputGraph.initNodeIdH();
     double[][] valsTransposed = tkFinal.getArray();
-    int total = 0;
+    int total1 = 0;
     int usePositves = 0;
     int useNegatives = 0;
     int trustPositives = 0;
     int trustNegatives = 0;
-       BufferedReader in
-            = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/Musical_Instruments_5.json"));
+    BufferedReader in
+            = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/20.json"));
 
     ArrayList<JSONObject> contentsAsJsonObjects = new ArrayList<JSONObject>();
     //   System.out.println("after content as json");
@@ -729,8 +729,6 @@ void predictUsefulness() throws IOException {
         if (str == null) break;
         contentsAsJsonObjects.add(new JSONObject(str));
     }
-
-
     for (JSONObject jobj : contentsAsJsonObjects) {
 
 
@@ -757,15 +755,15 @@ void predictUsefulness() throws IOException {
 
         } else
             continue;
-        total++;
-        if(div> 0.5){
+        total1++;
+        if(div> 0.6){
             usePositves++;
         }
         else{
             useNegatives++;
         }
 
-        if(valsTransposed[i][0]>0.7){
+        if(valsTransposed[i][0]>0.68){
             trustPositives++;
         }
         else{
@@ -775,12 +773,16 @@ void predictUsefulness() throws IOException {
 
 
     }
+    System.out.println("UsePositive "+usePositves);
+    System.out.println("UseNegative" + useNegatives);
+    System.out.println("trustPositives "+ trustPositives);
+    System.out.println("trust-ve " + trustNegatives);
 }
 
     void setupCmatrix(){
 
 
-
+        HashMap<String,Integer> NodeIdH = outputGraph.initNodeIdH();
         Iterator it = outputGraph.valueH.entrySet().iterator();
         while(it.hasNext()){
             Map.Entry pair = (Map.Entry) it.next();
