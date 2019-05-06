@@ -11,7 +11,7 @@ The goal of the project is to give trust value to users and thus generate a trus
 To run the module, the user has to first Prepare the data. For this run the PrepareData.java file and make sure to enter the correct input file path in function fetchIntoList() and the desired output file path in writeToFile().
 A sample input file to the model looks like
 
-User ID 1           User ID 2          Usefulness      UnixTime1      UnixTime2      Product ID 
+User ID 1                   User ID 2          Usefulness      UnixTime1      UnixTime2      Product ID 
 
 ABC68JUCPTVOE	      A3W2E6S24BTXXK	     0.01	         1333152000	    1401235200	   B000068NW5 
 
