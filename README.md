@@ -6,6 +6,11 @@ The goal of the project is to give trust value to users and thus generate a trus
 - NetInf
 - EigenTrust
 
+## External Libraries used 
+
+- JAMA for matrix 
+- JSON library
+- JUNG for graphs
 
 ## Process File
 To run the module, the user has to first prepare the data. For this run the PrepareData.java file and make sure to enter the correct input file path in function fetchIntoList() and the desired output file path in writeToFile().
