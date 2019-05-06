@@ -4,7 +4,7 @@ This is the repository for the project for CS 5614. The team members are Bipasha
 
 The goal of the project is to give trust value to users and thus generate a trust review network. The dataset used is from the SNAP dataset of Amazon Musical Instrument reviews. We have based our project on two different ideas.
 - NetInf
-- Eigen Trust
+- EigenTrust
 
 
 ## Process File
