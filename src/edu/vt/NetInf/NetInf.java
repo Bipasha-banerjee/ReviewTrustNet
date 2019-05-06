@@ -2,6 +2,8 @@ package edu.vt.NetInf;
 
 
 import Jama.Matrix;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import sun.security.krb5.internal.crypto.Des;
 
 import java.io.*;
@@ -706,22 +708,78 @@ public class NetInf {
         }
 
     }
-void predictUsefulness(){
-       String query = "A3237FOR4LVBZO";
-       HashMap<String,Integer> NodeIdH = outputGraph.initNodeIdH();
-       if(NodeIdH.containsKey(query)){
-           int i = NodeIdH.get(query);
-           double[][] valsTransposed = tkFinal.getArray();
-           double ans = valsTransposed[i][0];
-           System.out.println(ans);
-       }
+void predictUsefulness() throws IOException {
+
+    HashMap<String,Integer> NodeIdH = outputGraph.initNodeIdH();
+    double[][] valsTransposed = tkFinal.getArray();
+    int total = 0;
+    int usePositves = 0;
+    int useNegatives = 0;
+    int trustPositives = 0;
+    int trustNegatives = 0;
+       BufferedReader in
+            = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/Musical_Instruments_5.json"));
+
+    ArrayList<JSONObject> contentsAsJsonObjects = new ArrayList<JSONObject>();
+    //   System.out.println("after content as json");
+    while (true) {
+
+        String str = in.readLine();
+        //  System.out.println(str);
+        if (str == null) break;
+        contentsAsJsonObjects.add(new JSONObject(str));
+    }
 
 
+    for (JSONObject jobj : contentsAsJsonObjects) {
+
+
+        String reviewerID = jobj.getString("reviewerID");
+        if(NodeIdH.containsKey(reviewerID)){
+            int x = NodeIdH.get(reviewerID);
+
+        }
+        else{
+            continue;
+        }
+        JSONArray jarray = jobj.getJSONArray("helpful");
+
+
+        Integer i = jarray.getInt(0);
+        Integer j = jarray.getInt(1);
+        double div = 0;
+        if (i != 0 && j != 0) {
+            if (i == 1 && j == 1) {
+                div = 0.7;
+            } else {
+                div = (Double.valueOf(i)) / (Double.valueOf(j));
+            }
+
+        } else
+            continue;
+        total++;
+        if(div> 0.5){
+            usePositves++;
+        }
+        else{
+            useNegatives++;
+        }
+
+        if(valsTransposed[i][0]>0.7){
+            trustPositives++;
+        }
+        else{
+            trustNegatives++;
+        }
+
+
+
+    }
 }
 
     void setupCmatrix(){
 
-        HashMap<String,Integer> NodeIdH = outputGraph.initNodeIdH();
+
 
         Iterator it = outputGraph.valueH.entrySet().iterator();
         while(it.hasNext()){
@@ -803,20 +861,20 @@ void processEigen() throws IOException {
             FileWriter fileWriter = new FileWriter(output);
             PrintWriter printWriter = new PrintWriter(fileWriter);
             for(int i = 0; i < valsTransposed.length; i++) {
-                for(int j = 0; j < valsTransposed[i].length; j++) {
+               // for(int j = 0; j < valsTransposed[i].length; j++) {
 
-                    printWriter.print(valsTransposed[i][j]);
-                    printWriter.print(" ");
+                    //printWriter.print(valsTransposed[i][j]);
+                   //printWriter.print(" ");
 
-             //System.out.println(valsTransposed[i][j] );
+             System.out.println(valsTransposed[i][0] );
         }
                 printWriter.println();
 
 
-
+    printWriter.close();
             }
-            printWriter.close();
-    }
+
+
        // System.out.println(tkFinal);
 
 

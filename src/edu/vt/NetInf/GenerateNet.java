@@ -36,7 +36,7 @@ public class GenerateNet {
         netInf.AddtoOutputGraph();
         netInf.setupCmatrix();
         netInf.processEigen();
-        netInf.predictUsefulness();
+        //netInf.predictUsefulness();
     }
 
 
