@@ -61,6 +61,7 @@ public class Graph {
     class Edge{
         private Integer id;
         private String srcNId, dstNId;
+        private Double value = 0.0;
 
         public Edge(){
             id = -1;
@@ -74,8 +75,19 @@ public class Graph {
             this.dstNId = dstNId;
         }
 
+        public Edge(Integer id, String srcNId, String dstNId, double value) {
+            this.id = id;
+            this.srcNId = srcNId;
+            this.dstNId = dstNId;
+            this.value = value;
+        }
+
         //TSIn and TSout
 
+
+        public Double getValue() {
+            return value;
+        }
 
         public Integer getId() {
             return id;
@@ -91,10 +103,10 @@ public class Graph {
     }
     //Iterators to add?
 
-    private Integer  MxEId;
+    private Integer  MxEId =0;
 
-    private Map<String, Node> NodeH = new LinkedHashMap<>();
-    private Map<Integer,Edge> EdgeH = new LinkedHashMap<>();
+    public Map<String, Node> NodeH = new LinkedHashMap<>();
+    public Map<Integer,Edge> EdgeH = new LinkedHashMap<>();
 
     //TSIn and TSOut??
 
@@ -163,9 +175,11 @@ public class Graph {
 
     String GetRndNId(){
         Collection coll = NodeH.values();
-        Node[] nodes = (Node[]) coll.toArray();
+       // System.out.println(coll.toArray());
+        Object[] nodes = coll.toArray();
         int randomInt = ThreadLocalRandom.current().nextInt(0,nodes.length);
-        return nodes[randomInt].Id;
+        Node x = (Node) nodes[randomInt];
+        return x.Id;
 
     }
 
@@ -186,7 +200,7 @@ public class Graph {
         return EdgeH.containsKey(Eid);
     }
 
-    boolean isEdge(String srcNId, String dstNId, int Eid, boolean Dir){
+    boolean isEdge(String srcNId, String dstNId, boolean Dir){
         Node src = getNode(srcNId);
         for(int edge=0 ; edge < src.getOutDeg();edge++){
             Edge edge1 = getEdge(src.getOutEId(edge));
@@ -206,6 +220,26 @@ public class Graph {
         return false;
     }
 
+    Edge getEdge(String srcNId, String dstNId, boolean Dir){
+        Node src = getNode(srcNId);
+        for(int edge=0 ; edge < src.getOutDeg();edge++){
+            Edge edge1 = getEdge(src.getOutEId(edge));
+            if(dstNId == edge1.dstNId){
+                return edge1;
+            }
+        }
+        if(!Dir){
+            for(int edge=0 ; edge < src.getInDeg();edge++){
+                Edge edge1 = getEdge(src.getInEId(edge));
+                if(dstNId == edge1.srcNId){
+                    return edge1;
+                }
+            }
+
+        }
+        return null;
+    }
+
     int AddEdge(String srcNid, String dstNid, int Eid){
         if(Eid == -1){
             Eid = MxEId;
@@ -220,6 +254,22 @@ public class Graph {
         }
         return Eid;
     }
+
+    int AddEdge(String srcNid, String dstNid, int Eid,double value){
+        if(Eid == -1){
+            Eid = MxEId;
+            MxEId++;
+        }
+        if(!isEdge(Eid)){
+            if(isNode(srcNid) && isNode((dstNid))){
+                EdgeH.put(Eid, new Edge(Eid,srcNid,dstNid,value));
+                getNode(srcNid).outEid.add(Eid);
+                getNode(dstNid).inEid.add(Eid);
+            }
+        }
+        return Eid;
+    }
+
 
     void DelEdge(int EId){
         if(isEdge(EId)){
@@ -243,6 +293,20 @@ public class Graph {
 
     boolean Empty() { return getNodes()==0; }
     void Clr() { MxEId=0;  NodeH.clear();  EdgeH.clear(); }
+
+    HashMap<Integer,String> initNodeIdH(){
+        HashMap<Integer,String> NodeIdH = new HashMap<>();
+        Iterator it = NodeH.keySet().iterator();
+        int i = 0;
+        while(it.hasNext()){
+            String node = (String) it.next();
+            NodeIdH.put(i,node);
+            i++;
+
+        }
+        return NodeIdH;
+
+    }
 
 
 

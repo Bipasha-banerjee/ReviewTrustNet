@@ -61,7 +61,7 @@ public class PrepareData {
 
         @Override
         public String toString() {
-            return reviewerID1 + "," +  reviewerID2 + "," + usefulness + "," + UnixTime1 + UnixTime2 + "," + productID;
+            return reviewerID1 + "," +  reviewerID2 + "," + usefulness + "," + UnixTime1 +"," + UnixTime2 + "," + productID;
 
         }
     }
@@ -87,8 +87,7 @@ public class PrepareData {
         }
 
 
-
-        // writeToFile();
+       // writeToFile();
 
 
     }
@@ -96,12 +95,12 @@ public class PrepareData {
 
 
     static void fetchIntoList() throws IOException {
-        System.out.println("Inside fetchIntoList");
+    //    System.out.println("Inside fetchIntoList");
         BufferedReader in
-                = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/data_3.json"));
+                = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/Musical_Instruments_5.json"));
 
         ArrayList<JSONObject> contentsAsJsonObjects = new ArrayList<JSONObject>();
-        System.out.println("after content as json");
+     //   System.out.println("after content as json");
         while(true)
         {
 
@@ -127,10 +126,18 @@ public class PrepareData {
            double div =0;
            if(i!=0 && j!=0)
            {
-                div = (Double.valueOf(i))/(Double.valueOf(j));
+               if(i==1 && j==1){
+                   div = 0.7;
+               }
+               else{
+                   div = (Double.valueOf(i))/(Double.valueOf(j));
+               }
+
            }
+
            else
-               div = 0.01;
+               continue;
+               //div = 0.01;
 
            dataList.add(new dataObject(reviewerID,productID,div,rating,unixTime));
 
@@ -197,7 +204,7 @@ public class PrepareData {
 
     static void writeToFile(int k, List<tuples> lst ) throws IOException {
        // System.out.println(lst);
-        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
+        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/musicOutputW0/";
 
         FileWriter fileWriter = new FileWriter(path+"GroundTruth"+k+".csv");
         PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -216,6 +223,25 @@ public class PrepareData {
 
 
 
+        }
+        printWriter.close();
+
+    }
+
+    static public void writeToFile() throws IOException {
+        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
+
+        FileWriter fileWriter = new FileWriter(path+"GroundTruth.csv");
+        PrintWriter printWriter = new PrintWriter(fileWriter);
+
+
+        //String prevID = tupleList.get(0).productID;
+        for(int i =0; i < tupleList.size(); i++){
+
+
+            printWriter.println(tupleList.get(i).toString());
+
+            // System.out.println(lst.get(0));
         }
         printWriter.close();
 

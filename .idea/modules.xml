@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/ReviewTrustNet.iml" filepath="$PROJECT_DIR$/.idea/ReviewTrustNet.iml" />
-=======
-      <module fileurl="file://$PROJECT_DIR$/ReviewTrustNet.iml" filepath="$PROJECT_DIR$/ReviewTrustNet.iml" />
->>>>>>> 7e0459e3268c698bdebda6408162eae93c2b4612
+      <module fileurl="file://$PROJECT_DIR$/untitled/untitled.iml" filepath="$PROJECT_DIR$/untitled/untitled.iml" />
     </modules>
   </component>
 </project>
