@@ -1,6 +1,6 @@
 # ReviewTrustNet
 
-This is the repository for the project for CS 5614. The team members are Bipasha Banerjee, Smridh Malthotra and Ramya Nandigam. 
+This is the repository for the project for CS 5614. The team members are Bipasha Banerjee, Smridh Malhotra and Ramya Nandigam. 
 
 The goal of the project is to give trust value to users and thus generate a trust review network. The data set used is from SNAP dataset of amazon musical instrument reviews. We have based our project out of two different ideas.
 - NetInf
@@ -11,13 +11,13 @@ The goal of the project is to give trust value to users and thus generate a trus
 To run the module, the user has to first Prepare the data. For this run the PrepareData.java file and make sure to enter the correct input file path in function fetchIntoList() and the desired output file path in writeToFile().
 A sample input file to the model looks like
 
-User ID 1       User ID 2       Usefulness   UnixTime1   UnixTime2   Product ID 
+User ID 1           User ID 2          Usefulness      UnixTime1      UnixTime2      Product ID 
 
-ABC68JUCPTVOE	  A3W2E6S24BTXXK	0.01	      1333152000	1401235200	B000068NW5 
+ABC68JUCPTVOE	      A3W2E6S24BTXXK	     0.01	         1333152000	    1401235200	   B000068NW5 
 
-ABC68JUCPTVOE	  A3872Y2XH0YDX1	0.01	      1333152000	1363132800	B000068NW5 
+ABC68JUCPTVOE	     A3872Y2XH0YDX1	       0.01	         1333152000	    1363132800	   B000068NW5 
 
-ABC68JUCPTVOE	  A398X9POBHK69N	0.01	      1333152000	1388966400	B000068NW5 
+ABC68JUCPTVOE	     A398X9POBHK69N	       0.01	         1333152000	     1388966400	   B000068NW5 
 
 ## Cascade.java
 Lays out the generation of cascades along with the calculation of probabilities of each of the cascades as well carries out the changes in the parent of a particular node.
