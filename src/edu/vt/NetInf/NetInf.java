@@ -661,7 +661,7 @@ public class NetInf {
     void saveGraphText() throws IOException {
      //   System.out.println("Inside save");
         int size = graph.getEdges();
-        String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/outputFiles/";
+        String path = "/Users/bipashabanerjee/Documents/CS/sem2/DBMS/project/power/powerOutput.txt";
 
         FileWriter fileWriter = new FileWriter(path+"outputGraph.csv");
         PrintWriter printWriter = new PrintWriter(fileWriter);
@@ -718,7 +718,7 @@ void predictUsefulness() throws IOException {
     int trustPositives = 0;
     int trustNegatives = 0;
     BufferedReader in
-            = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/20.json"));
+            = new BufferedReader(new FileReader("/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/dataSet/20.json"));
 
     ArrayList<JSONObject> contentsAsJsonObjects = new ArrayList<JSONObject>();
     //   System.out.println("after content as json");
@@ -829,53 +829,50 @@ void predictUsefulness() throws IOException {
         }
 
 void processEigen() throws IOException {
-        PMatrix = new double[CMatrix.length][CMatrix[0].length];
-        for(int i=0;i< PMatrix.length;i++)
-        {
-            for(int j=0; j< PMatrix[i].length; j++)
-            {
-                PMatrix[i][j] = 1/Double.valueOf(trusted);
-            }
-
-        }
-        Matrix pMatrix = new Matrix(PMatrix);
-        Matrix cMatrix = new Matrix(CMatrix);
-        Matrix tk = pMatrix.copy();
-        Matrix tkplus1 = null;
-        Matrix cTrans = cMatrix.transpose();
-        for(int i=0;i<iterations; i++)
-        {
-            tkplus1 = cTrans.times(tk);
-            tkplus1 = tkplus1.times(1-a);
-            tkplus1 =tkplus1.plus(pMatrix.times(a));
-            //System.out.println(tkplus1.minus(tk).norm2());
-            tk = tkplus1.copy();
-          //  System.out.println(tkplus1.minus(tk).norm2());
+    PMatrix = new double[CMatrix.length][CMatrix[0].length];
+    for (int i = 0; i < PMatrix.length; i++) {
+        for (int j = 0; j < PMatrix[i].length; j++) {
+            PMatrix[i][j] = 1 / Double.valueOf(trusted);
         }
 
-        tkFinal=tk.copy();
-        double[][] valsTransposed = tkFinal.getArray();
+    }
+    Matrix pMatrix = new Matrix(PMatrix);
+    Matrix cMatrix = new Matrix(CMatrix);
+    Matrix tk = pMatrix.copy();
+    Matrix tkplus1 = null;
+    Matrix cTrans = cMatrix.transpose();
+    for (int i = 0; i < iterations; i++) {
+        tkplus1 = cTrans.times(tk);
+        tkplus1 = tkplus1.times(1 - a);
+        tkplus1 = tkplus1.plus(pMatrix.times(a));
+        //System.out.println(tkplus1.minus(tk).norm2());
+        tk = tkplus1.copy();
+        //  System.out.println(tkplus1.minus(tk).norm2());
+    }
+
+    tkFinal = tk.copy();
+    double[][] valsTransposed = tkFinal.getArray();
 
     // now loop through the rows of valsTransposed to print
 
 
-            File output = new File("/Users/bipashabanerjee/Documents/CS/sem2/DBMS/project/power/powerEigenOutput.txt");
-            FileWriter fileWriter = new FileWriter(output);
-            PrintWriter printWriter = new PrintWriter(fileWriter);
-            for(int i = 0; i < valsTransposed.length; i++) {
-               // for(int j = 0; j < valsTransposed[i].length; j++) {
+    File output = new File("/Users/bipashabanerjee/Documents/CS/sem2/DBMS/project/power/powerEigenOutput.txt");
+    FileWriter fileWriter = new FileWriter(output);
+    PrintWriter printWriter = new PrintWriter(fileWriter);
+    for (int i = 0; i < valsTransposed.length; i++) {
+        for (int j = 0; j < valsTransposed[i].length; j++) {
 
-                    //printWriter.print(valsTransposed[i][j]);
-                   //printWriter.print(" ");
+            printWriter.print(valsTransposed[i][j]);
+            printWriter.print(" ");
 
-             System.out.println(valsTransposed[i][0] );
+            System.out.println(valsTransposed[i][0]);
         }
-                printWriter.println();
+        printWriter.println();
 
 
-    printWriter.close();
-            }
-
+        printWriter.close();
+    }
+}
 
        // System.out.println(tkFinal);
 

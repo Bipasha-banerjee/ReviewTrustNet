@@ -9,6 +9,9 @@ import java.util.HashMap;
 public class GenerateNet {
     public static void main(String[] args) throws IOException {
         NetInf netInf = new NetInf();
+
+        // Either comment below or comment after the for loop for either creating the graph/computing eigen.
+
       /*  String path = "/Users/bipashabanerjee/IdeaProjects/ReviewTrustNet/musicOutputW0/";
         for (int j = 675; j < 676; j++) {
             netInf.clear();
@@ -28,7 +31,6 @@ public class GenerateNet {
             netInf.init();
             netInf.GreedyOpt();
             netInf.saveGraphText();
-            netInf.AddtoOutputGraph();
             System.out.println("File" + j);
 
 
